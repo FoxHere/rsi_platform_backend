@@ -1,14 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { AxiosResponse } from 'axios';
-import { JiraConvertToHtml } from '../transformers/jira_api.converttohtml.service';
-import { LocalWikitextToHtmlConverter } from '../transformers/jira_api.localwikitexttohtml.service';
 
 @Injectable()
 export class JiraApiDataMappingService {
-  constructor(
-    private jiraConvertToHtml: JiraConvertToHtml,
-    private converter: LocalWikitextToHtmlConverter,
-  ) {}
+  constructor() {}
 
   async mapFieldsPdDocument(data: any): Promise<any> {
     const fieldsMappedPromises = data.issues.map(async (item) => ({

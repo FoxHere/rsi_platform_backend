@@ -4,8 +4,6 @@ import {
   Injectable,
   StreamableFile,
 } from '@nestjs/common';
-import { CreateJiraApiDto } from './dto/create-jira_api.dto';
-import { UpdateJiraApiDto } from './dto/update-jira_api.dto';
 import * as https from 'https';
 import { HttpService } from '@nestjs/axios';
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
@@ -13,9 +11,10 @@ import { Observable, firstValueFrom, lastValueFrom, map, tap } from 'rxjs';
 import { JiraApiDataMappingService } from './mapping/jira_api.datamapping.service';
 import { response } from 'express';
 import { JiraApiNewCFMappingService } from './mapping/jira_api.newcfmapping.service';
-import { JiraCustomFields } from './helpers/custom_fields';
+
 import { createReadStream } from 'fs';
-import { EncryptionService } from '../utils/services/encryption.service';
+import { EncryptionService } from 'src/common/utils/utils.encryption.service';
+import { JiraCustomFields } from 'src/common/helpers/helpers.custom_fields.enum';
 
 @Injectable()
 export class JiraApiService {

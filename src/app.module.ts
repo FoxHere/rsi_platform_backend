@@ -1,12 +1,10 @@
 import { Module } from '@nestjs/common';
 import { JiraApiModule } from './modules/jira_api/jira_api.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { PostgresConfigJirareplicaService } from './config/postgres.config.jirareplica.service';
 import { ConfigModule } from '@nestjs/config';
-import { JiraDatabaseModule } from './modules/jira_database/jira_database.module';
 import { PostgresConfigLocalService } from './config/postgres.config.local.service';
-import { EncryptionService } from './modules/utils/services/encryption.service';
-import { UtilsModule } from './modules/utils/utils.module';
+import { PddocumentModule } from './modules/documents/pddocument/v1/pddocument.module';
+import { ReleasesModule } from './modules/releases/v1/releases.module';
 
 @Module({
   imports: [
@@ -26,7 +24,8 @@ import { UtilsModule } from './modules/utils/utils.module';
       isGlobal: true,
     }),
     JiraApiModule,
-    UtilsModule,
+    PddocumentModule,
+    ReleasesModule,
     // JiraDatabaseModule,
   ],
   controllers: [],

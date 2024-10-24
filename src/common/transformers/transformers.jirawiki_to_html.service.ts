@@ -2,10 +2,10 @@ import { HttpService } from '@nestjs/axios';
 import { Injectable } from '@nestjs/common';
 import { firstValueFrom } from 'rxjs';
 import sharp from 'sharp';
-import { EncryptionService } from 'src/modules/utils/services/encryption.service';
+import { EncryptionService } from 'src/common/utils/utils.encryption.service';
 
 @Injectable()
-export class LocalWikitextToHtmlConverter {
+export class TrasformerJirawikiToHtml {
   constructor(
     private readonly httpService: HttpService,
     private readonly encryptService: EncryptionService,
@@ -32,7 +32,7 @@ export class LocalWikitextToHtmlConverter {
 
     return links;
   }
-  removeWiki(wikiText: string): string {
+  async removeWiki(wikiText: string): Promise<string> {
     let text: string = wikiText;
     if (text === null || text === '' || text === '_None_') {
       text = '';
