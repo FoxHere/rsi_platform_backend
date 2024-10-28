@@ -12,4 +12,5 @@ export enum JiraCustomFields {
   DueDate = 'duedate',
   FixVersions = 'fixVersions',
   ReleaseStatus = 'status',
+  ApplicationArea = 'customfield_14600',
 }

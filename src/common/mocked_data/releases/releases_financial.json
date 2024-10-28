@@ -21,6 +21,7 @@
                         "releaseDate": "2024-09-19"
                     }
                 ],
+                "customfield_14600": "Financial",
                 "status": {
                     "self": "https://jiraqa/rest/api/2/status/12500",
                     "description": "",
