@@ -10,7 +10,7 @@ import { PddocumentService } from './pddocument.service';
 import { lastValueFrom } from 'rxjs';
 import { Response } from 'express';
 
-@Controller('pddocument')
+@Controller({ path: 'pddocument', version: '1' })
 export class PddocumentController {
   constructor(private readonly pddocumentService: PddocumentService) {}
 

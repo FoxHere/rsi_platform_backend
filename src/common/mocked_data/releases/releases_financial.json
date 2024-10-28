@@ -1,0 +1,41 @@
+{
+    "expand": "names,schema",
+    "startAt": 0,
+    "maxResults": 50,
+    "total": 1,
+    "issues": [
+        {
+            "expand": "operations,versionedRepresentations,editmeta,changelog,renderedFields",
+            "id": "710305",
+            "self": "https://jiraqa/rest/api/2/issue/710305",
+            "key": "SUSF-10049",
+            "fields": {
+                "fixVersions": [
+                    {
+                        "self": "https://jiraqa/rest/api/2/version/19583",
+                        "id": "19583",
+                        "description": "US Finance Tax & Regulatory Update",
+                        "name": "RS24SAP-US-F02",
+                        "archived": false,
+                        "released": false,
+                        "releaseDate": "2024-09-19"
+                    }
+                ],
+                "status": {
+                    "self": "https://jiraqa/rest/api/2/status/12500",
+                    "description": "",
+                    "iconUrl": "https://jiraqa/images/icons/statuses/generic.png",
+                    "name": "Unreleased",
+                    "id": "12500",
+                    "statusCategory": {
+                        "self": "https://jiraqa/rest/api/2/statuscategory/2",
+                        "id": 2,
+                        "key": "new",
+                        "colorName": "default",
+                        "name": "To Do"
+                    }
+                }
+            }
+        }
+    ]
+}

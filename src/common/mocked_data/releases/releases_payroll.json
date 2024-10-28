@@ -1,0 +1,404 @@
+{
+    "expand": "schema,names",
+    "startAt": 0,
+    "maxResults": 50,
+    "total": 12,
+    "issues": [
+        {
+            "expand": "operations,versionedRepresentations,editmeta,changelog,renderedFields",
+            "id": "709776",
+            "self": "https://jiraqa/rest/api/2/issue/709776",
+            "key": "SUSP-151103",
+            "fields": {
+                "fixVersions": [
+                    {
+                        "self": "https://jiraqa/rest/api/2/version/19382",
+                        "id": "19382",
+                        "description": "US Payroll Tax & Regulatory Update",
+                        "name": "RS24SAP-US-P01",
+                        "archived": false,
+                        "released": true,
+                        "releaseDate": "2024-01-04"
+                    }
+                ],
+                "status": {
+                    "self": "https://jiraqa/rest/api/2/status/12500",
+                    "description": "",
+                    "iconUrl": "https://jiraqa/images/icons/statuses/generic.png",
+                    "name": "Unreleased",
+                    "id": "12500",
+                    "statusCategory": {
+                        "self": "https://jiraqa/rest/api/2/statuscategory/2",
+                        "id": 2,
+                        "key": "new",
+                        "colorName": "default",
+                        "name": "To Do"
+                    }
+                }
+            }
+        },
+        {
+            "expand": "operations,versionedRepresentations,editmeta,changelog,renderedFields",
+            "id": "709969",
+            "self": "https://jiraqa/rest/api/2/issue/709969",
+            "key": "SUSP-151133",
+            "fields": {
+                "fixVersions": [
+                    {
+                        "self": "https://jiraqa/rest/api/2/version/19506",
+                        "id": "19506",
+                        "description": "US Payroll Tax & Regulatory Update",
+                        "name": "RS24SAP-US-P03",
+                        "archived": false,
+                        "released": true,
+                        "releaseDate": "2024-02-22"
+                    }
+                ],
+                "status": {
+                    "self": "https://jiraqa/rest/api/2/status/12500",
+                    "description": "",
+                    "iconUrl": "https://jiraqa/images/icons/statuses/generic.png",
+                    "name": "Unreleased",
+                    "id": "12500",
+                    "statusCategory": {
+                        "self": "https://jiraqa/rest/api/2/statuscategory/2",
+                        "id": 2,
+                        "key": "new",
+                        "colorName": "default",
+                        "name": "To Do"
+                    }
+                }
+            }
+        },
+        {
+            "expand": "operations,versionedRepresentations,editmeta,changelog,renderedFields",
+            "id": "709970",
+            "self": "https://jiraqa/rest/api/2/issue/709970",
+            "key": "SUSP-151134",
+            "fields": {
+                "fixVersions": [
+                    {
+                        "self": "https://jiraqa/rest/api/2/version/19553",
+                        "id": "19553",
+                        "description": "US Payroll Tax & Regulatory Update",
+                        "name": "RS24SAP-US-P04",
+                        "archived": false,
+                        "released": true,
+                        "releaseDate": "2024-03-20"
+                    }
+                ],
+                "status": {
+                    "self": "https://jiraqa/rest/api/2/status/12500",
+                    "description": "",
+                    "iconUrl": "https://jiraqa/images/icons/statuses/generic.png",
+                    "name": "Unreleased",
+                    "id": "12500",
+                    "statusCategory": {
+                        "self": "https://jiraqa/rest/api/2/statuscategory/2",
+                        "id": 2,
+                        "key": "new",
+                        "colorName": "default",
+                        "name": "To Do"
+                    }
+                }
+            }
+        },
+        {
+            "expand": "operations,versionedRepresentations,editmeta,changelog,renderedFields",
+            "id": "709971",
+            "self": "https://jiraqa/rest/api/2/issue/709971",
+            "key": "SUSP-151135",
+            "fields": {
+                "fixVersions": [
+                    {
+                        "self": "https://jiraqa/rest/api/2/version/19576",
+                        "id": "19576",
+                        "description": "US Payroll Tax & Regulatory Updates",
+                        "name": "RS24SAP-US-P05",
+                        "archived": false,
+                        "released": true,
+                        "releaseDate": "2024-04-18"
+                    }
+                ],
+                "status": {
+                    "self": "https://jiraqa/rest/api/2/status/12500",
+                    "description": "",
+                    "iconUrl": "https://jiraqa/images/icons/statuses/generic.png",
+                    "name": "Unreleased",
+                    "id": "12500",
+                    "statusCategory": {
+                        "self": "https://jiraqa/rest/api/2/statuscategory/2",
+                        "id": 2,
+                        "key": "new",
+                        "colorName": "default",
+                        "name": "To Do"
+                    }
+                }
+            }
+        },
+        {
+            "expand": "operations,versionedRepresentations,editmeta,changelog,renderedFields",
+            "id": "709972",
+            "self": "https://jiraqa/rest/api/2/issue/709972",
+            "key": "SUSP-151136",
+            "fields": {
+                "fixVersions": [
+                    {
+                        "self": "https://jiraqa/rest/api/2/version/19577",
+                        "id": "19577",
+                        "description": "US Payroll Tax & Regulatory Updates",
+                        "name": "RS24SAP-US-P06",
+                        "archived": false,
+                        "released": true,
+                        "releaseDate": "2024-05-23"
+                    }
+                ],
+                "status": {
+                    "self": "https://jiraqa/rest/api/2/status/12500",
+                    "description": "",
+                    "iconUrl": "https://jiraqa/images/icons/statuses/generic.png",
+                    "name": "Unreleased",
+                    "id": "12500",
+                    "statusCategory": {
+                        "self": "https://jiraqa/rest/api/2/statuscategory/2",
+                        "id": 2,
+                        "key": "new",
+                        "colorName": "default",
+                        "name": "To Do"
+                    }
+                }
+            }
+        },
+        {
+            "expand": "operations,versionedRepresentations,editmeta,changelog,renderedFields",
+            "id": "709973",
+            "self": "https://jiraqa/rest/api/2/issue/709973",
+            "key": "SUSP-151137",
+            "fields": {
+                "fixVersions": [
+                    {
+                        "self": "https://jiraqa/rest/api/2/version/19578",
+                        "id": "19578",
+                        "description": "US Payroll Tax & Regulatory Updates",
+                        "name": "RS24SAP-US-P07",
+                        "archived": false,
+                        "released": true,
+                        "releaseDate": "2024-06-27"
+                    }
+                ],
+                "status": {
+                    "self": "https://jiraqa/rest/api/2/status/12500",
+                    "description": "",
+                    "iconUrl": "https://jiraqa/images/icons/statuses/generic.png",
+                    "name": "Unreleased",
+                    "id": "12500",
+                    "statusCategory": {
+                        "self": "https://jiraqa/rest/api/2/statuscategory/2",
+                        "id": 2,
+                        "key": "new",
+                        "colorName": "default",
+                        "name": "To Do"
+                    }
+                }
+            }
+        },
+        {
+            "expand": "operations,versionedRepresentations,editmeta,changelog,renderedFields",
+            "id": "709974",
+            "self": "https://jiraqa/rest/api/2/issue/709974",
+            "key": "SUSP-151138",
+            "fields": {
+                "fixVersions": [
+                    {
+                        "self": "https://jiraqa/rest/api/2/version/19579",
+                        "id": "19579",
+                        "description": "US Payroll Tax & Regulatory Updates",
+                        "name": "RS24SAP-US-P08",
+                        "archived": false,
+                        "released": true,
+                        "releaseDate": "2024-07-24"
+                    }
+                ],
+                "status": {
+                    "self": "https://jiraqa/rest/api/2/status/12500",
+                    "description": "",
+                    "iconUrl": "https://jiraqa/images/icons/statuses/generic.png",
+                    "name": "Unreleased",
+                    "id": "12500",
+                    "statusCategory": {
+                        "self": "https://jiraqa/rest/api/2/statuscategory/2",
+                        "id": 2,
+                        "key": "new",
+                        "colorName": "default",
+                        "name": "To Do"
+                    }
+                }
+            }
+        },
+        {
+            "expand": "operations,versionedRepresentations,editmeta,changelog,renderedFields",
+            "id": "709975",
+            "self": "https://jiraqa/rest/api/2/issue/709975",
+            "key": "SUSP-151139",
+            "fields": {
+                "fixVersions": [
+                    {
+                        "self": "https://jiraqa/rest/api/2/version/19580",
+                        "id": "19580",
+                        "description": "US Payroll Tax & Regulatory Updates",
+                        "name": "RS24SAP-US-P09",
+                        "archived": false,
+                        "released": false,
+                        "releaseDate": "2024-08-22"
+                    }
+                ],
+                "status": {
+                    "self": "https://jiraqa/rest/api/2/status/12500",
+                    "description": "",
+                    "iconUrl": "https://jiraqa/images/icons/statuses/generic.png",
+                    "name": "Unreleased",
+                    "id": "12500",
+                    "statusCategory": {
+                        "self": "https://jiraqa/rest/api/2/statuscategory/2",
+                        "id": 2,
+                        "key": "new",
+                        "colorName": "default",
+                        "name": "To Do"
+                    }
+                }
+            }
+        },
+        {
+            "expand": "operations,versionedRepresentations,editmeta,changelog,renderedFields",
+            "id": "710017",
+            "self": "https://jiraqa/rest/api/2/issue/710017",
+            "key": "SUSP-151170",
+            "fields": {
+                "fixVersions": [
+                    {
+                        "self": "https://jiraqa/rest/api/2/version/20605",
+                        "id": "20605",
+                        "description": "US Finance Tax & Regulatory Update (Demo)",
+                        "name": "RS24SAP-US-F02",
+                        "archived": false,
+                        "released": false,
+                        "releaseDate": "2024-09-19"
+                    }
+                ],
+                "status": {
+                    "self": "https://jiraqa/rest/api/2/status/12500",
+                    "description": "",
+                    "iconUrl": "https://jiraqa/images/icons/statuses/generic.png",
+                    "name": "Unreleased",
+                    "id": "12500",
+                    "statusCategory": {
+                        "self": "https://jiraqa/rest/api/2/statuscategory/2",
+                        "id": 2,
+                        "key": "new",
+                        "colorName": "default",
+                        "name": "To Do"
+                    }
+                }
+            }
+        },
+        {
+            "expand": "operations,versionedRepresentations,editmeta,changelog,renderedFields",
+            "id": "710014",
+            "self": "https://jiraqa/rest/api/2/issue/710014",
+            "key": "SUSP-151167",
+            "fields": {
+                "fixVersions": [
+                    {
+                        "self": "https://jiraqa/rest/api/2/version/20604",
+                        "id": "20604",
+                        "description": "Canada Payroll Tax & Regulatory Updates (Demo)",
+                        "name": "RS24SAP-CA-P06",
+                        "archived": false,
+                        "released": false,
+                        "releaseDate": "2024-09-26"
+                    }
+                ],
+                "status": {
+                    "self": "https://jiraqa/rest/api/2/status/12500",
+                    "description": "",
+                    "iconUrl": "https://jiraqa/images/icons/statuses/generic.png",
+                    "name": "Unreleased",
+                    "id": "12500",
+                    "statusCategory": {
+                        "self": "https://jiraqa/rest/api/2/statuscategory/2",
+                        "id": 2,
+                        "key": "new",
+                        "colorName": "default",
+                        "name": "To Do"
+                    }
+                }
+            }
+        },
+        {
+            "expand": "operations,versionedRepresentations,editmeta,changelog,renderedFields",
+            "id": "709976",
+            "self": "https://jiraqa/rest/api/2/issue/709976",
+            "key": "SUSP-151140",
+            "fields": {
+                "fixVersions": [
+                    {
+                        "self": "https://jiraqa/rest/api/2/version/19931",
+                        "id": "19931",
+                        "description": "US Payroll Tax & Regulatory Updates",
+                        "name": "RS24SAP-US-P10",
+                        "archived": false,
+                        "released": false,
+                        "releaseDate": "2024-09-26"
+                    }
+                ],
+                "status": {
+                    "self": "https://jiraqa/rest/api/2/status/12500",
+                    "description": "",
+                    "iconUrl": "https://jiraqa/images/icons/statuses/generic.png",
+                    "name": "Unreleased",
+                    "id": "12500",
+                    "statusCategory": {
+                        "self": "https://jiraqa/rest/api/2/statuscategory/2",
+                        "id": 2,
+                        "key": "new",
+                        "colorName": "default",
+                        "name": "To Do"
+                    }
+                }
+            }
+        },
+        {
+            "expand": "operations,versionedRepresentations,editmeta,changelog,renderedFields",
+            "id": "709977",
+            "self": "https://jiraqa/rest/api/2/issue/709977",
+            "key": "SUSP-151141",
+            "fields": {
+                "fixVersions": [
+                    {
+                        "self": "https://jiraqa/rest/api/2/version/19932",
+                        "id": "19932",
+                        "description": "US Payroll Tax & Regulatory Updates",
+                        "name": "RS24SAP-US-P11",
+                        "archived": false,
+                        "released": false,
+                        "releaseDate": "2024-10-24"
+                    }
+                ],
+                "status": {
+                    "self": "https://jiraqa/rest/api/2/status/12500",
+                    "description": "",
+                    "iconUrl": "https://jiraqa/images/icons/statuses/generic.png",
+                    "name": "Unreleased",
+                    "id": "12500",
+                    "statusCategory": {
+                        "self": "https://jiraqa/rest/api/2/statuscategory/2",
+                        "id": 2,
+                        "key": "new",
+                        "colorName": "default",
+                        "name": "To Do"
+                    }
+                }
+            }
+        }
+    ]
+}

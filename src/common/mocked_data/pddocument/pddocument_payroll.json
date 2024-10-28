@@ -1,0 +1,557 @@
+{
+    "expand": "schema,names",
+    "startAt": 0,
+    "maxResults": 50,
+    "total": 11,
+    "issues": [
+        {
+            "expand": "operations,versionedRepresentations,editmeta,changelog,renderedFields",
+            "id": "709662",
+            "self": "https://jiraqa/rest/api/2/issue/709662",
+            "key": "SUSP-151071",
+            "fields": {
+                "summary": "US - Ohio - City of Ravenna-Rootstown JEDD - Local Income Tax, Effective 1/1/2024",
+                "description": null,
+                "fixVersions": [
+                    {
+                        "self": "https://jiraqa/rest/api/2/version/19383",
+                        "id": "19383",
+                        "description": "US Payroll Tax & Regulatory Update",
+                        "name": "RS24SAP-US-P02",
+                        "archived": false,
+                        "released": false,
+                        "releaseDate": "2024-01-25"
+                    }
+                ],
+                "customfield_14700": "_None_",
+                "customfield_14701": "{*}Tax Collector{*}: RITA\r\n\r\n*Municipal Code:* 697\r\n\r\n*County:* Portage\r\n\r\n*FIPS Code:* N/A\r\n\r\n*Zip Code:* 44272",
+                "customfield_14704": "US - Ohio - City of Ravenna-Rootstown JEDD - Local Income Tax, Effective 1/1/2024",
+                "customfield_14702": "[Rootstown Township JEDD Website|https://www.rootstowntwp.com/JEDD.php]\r\n\r\n ",
+                "customfield_14703": "_None_",
+                "attachment": [
+                    {
+                        "self": "https://jiraqa/rest/api/2/attachment/197802",
+                        "id": "197802",
+                        "filename": "Agile Sizing - Best Practices.pptx",
+                        "author": {
+                            "self": "https://jiraqa/rest/api/2/user?username=mbroz",
+                            "name": "mbroz",
+                            "key": "mbroz",
+                            "emailAddress": "mbroz@riministreet.com",
+                            "avatarUrls": {
+                                "48x48": "https://jiraqa/secure/useravatar?ownerId=mbroz&avatarId=12721",
+                                "24x24": "https://jiraqa/secure/useravatar?size=small&ownerId=mbroz&avatarId=12721",
+                                "16x16": "https://jiraqa/secure/useravatar?size=xsmall&ownerId=mbroz&avatarId=12721",
+                                "32x32": "https://jiraqa/secure/useravatar?size=medium&ownerId=mbroz&avatarId=12721"
+                            },
+                            "displayName": "Mike Broz",
+                            "active": true,
+                            "timeZone": "America/Los_Angeles"
+                        },
+                        "created": "2024-09-24T10:09:14.764-0700",
+                        "size": 1064576,
+                        "mimeType": "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+                        "content": "https://jiraqa/secure/attachment/197802/Agile+Sizing+-+Best+Practices.pptx"
+                    },
+                    {
+                        "self": "https://jiraqa/rest/api/2/attachment/197801",
+                        "id": "197801",
+                        "filename": "ReleaseEpic1.JPG",
+                        "author": {
+                            "self": "https://jiraqa/rest/api/2/user?username=mbroz",
+                            "name": "mbroz",
+                            "key": "mbroz",
+                            "emailAddress": "mbroz@riministreet.com",
+                            "avatarUrls": {
+                                "48x48": "https://jiraqa/secure/useravatar?ownerId=mbroz&avatarId=12721",
+                                "24x24": "https://jiraqa/secure/useravatar?size=small&ownerId=mbroz&avatarId=12721",
+                                "16x16": "https://jiraqa/secure/useravatar?size=xsmall&ownerId=mbroz&avatarId=12721",
+                                "32x32": "https://jiraqa/secure/useravatar?size=medium&ownerId=mbroz&avatarId=12721"
+                            },
+                            "displayName": "Mike Broz",
+                            "active": true,
+                            "timeZone": "America/Los_Angeles"
+                        },
+                        "created": "2024-09-24T10:08:14.947-0700",
+                        "size": 102380,
+                        "mimeType": "image/jpeg",
+                        "content": "https://jiraqa/secure/attachment/197801/ReleaseEpic1.JPG",
+                        "thumbnail": "https://jiraqa/secure/thumbnail/197801/_thumb_197801.png"
+                    }
+                ],
+                "customfield_13705": "Effective January 1, 2024, the City of Ravenna and the Township of Rootstown created the City of Ravenna-Rootstown JEDD with a tax rate of {*}2.0%{*}.\r\n\r\n ",
+                "duedate": null,
+                "status": {
+                    "self": "https://jiraqa/rest/api/2/status/10002",
+                    "description": "",
+                    "iconUrl": "https://jiraqa/images/icons/statuses/open.png",
+                    "name": "To Do",
+                    "id": "10002",
+                    "statusCategory": {
+                        "self": "https://jiraqa/rest/api/2/statuscategory/2",
+                        "id": 2,
+                        "key": "new",
+                        "colorName": "default",
+                        "name": "To Do"
+                    }
+                }
+            }
+        },
+        {
+            "expand": "operations,versionedRepresentations,editmeta,changelog,renderedFields",
+            "id": "709660",
+            "self": "https://jiraqa/rest/api/2/issue/709660",
+            "key": "SUSP-151069",
+            "fields": {
+                "summary": "US - Ohio - Marion LSD Income Tax, Effective 1/1/2024",
+                "description": null,
+                "fixVersions": [
+                    {
+                        "self": "https://jiraqa/rest/api/2/version/19383",
+                        "id": "19383",
+                        "description": "US Payroll Tax & Regulatory Update",
+                        "name": "RS24SAP-US-P02",
+                        "archived": false,
+                        "released": false,
+                        "releaseDate": "2024-01-25"
+                    }
+                ],
+                "customfield_14700": "_None_",
+                "customfield_14701": "*Tax Collector:* State of Ohio\r\n\r\n*Tax Credit:* n/a\r\n\r\n*Credit Limit:* n/a\r\n\r\n*Counties:* Mercer, Auglaize, and Darke\r\n\r\n*Muni Code:* 5403\r\n\r\n*FIPS Code:* N/A\r\n\r\n*Zip Code:* 43302\r\n\r\n*Tax Type:* E (Earned Income)\r\n\r\n ",
+                "customfield_14704": "US - Ohio - Marion LSD Income Tax, Effective 1/1/2024",
+                "customfield_14702": "[Ohio Department of Taxation Employer Withholding website|https://tax.ohio.gov/business/resources/employer-withholding]",
+                "customfield_14703": "_None_",
+                "attachment": [],
+                "customfield_13705": "Effective January 1, 2024, the Marion School District in Mercer, Auglaize, and Darke Counties, established an earned income tax in the amount of {*}0.50%{*}.\r\n\r\n ",
+                "duedate": null,
+                "status": {
+                    "self": "https://jiraqa/rest/api/2/status/10002",
+                    "description": "",
+                    "iconUrl": "https://jiraqa/images/icons/statuses/open.png",
+                    "name": "To Do",
+                    "id": "10002",
+                    "statusCategory": {
+                        "self": "https://jiraqa/rest/api/2/statuscategory/2",
+                        "id": 2,
+                        "key": "new",
+                        "colorName": "default",
+                        "name": "To Do"
+                    }
+                }
+            }
+        },
+        {
+            "expand": "operations,versionedRepresentations,editmeta,changelog,renderedFields",
+            "id": "709658",
+            "self": "https://jiraqa/rest/api/2/issue/709658",
+            "key": "SUSP-151067",
+            "fields": {
+                "summary": "US - Ohio - Blanchester LSD - Income Tax, Effective 1/1/2024",
+                "description": null,
+                "fixVersions": [
+                    {
+                        "self": "https://jiraqa/rest/api/2/version/19383",
+                        "id": "19383",
+                        "description": "US Payroll Tax & Regulatory Update",
+                        "name": "RS24SAP-US-P02",
+                        "archived": false,
+                        "released": false,
+                        "releaseDate": "2024-01-25"
+                    }
+                ],
+                "customfield_14700": "_None_",
+                "customfield_14701": "*Tax Collector:* State of Ohio\r\n\r\n*Tax Credit:* n/a\r\n\r\n*Credit Limit:* n/a\r\n\r\n*Counties:* Clinton, Brown, Clermont, Warren\r\n\r\n*Muni Code:* 1401\r\n\r\n*FIPS Code:* N/A\r\n||Heading 1||Heading 2||\r\n|Col A1|Col A2|\r\n\r\n \r\n\r\n*Zip Code:*\r\n * 45162\r\n * 45148\r\n * 45122\r\n * 45118\r\n * 45107\r\n\r\n*Tax Type:* E (Earned Income)",
+                "customfield_14704": "US - Ohio - Blanchester LSD - Income Tax, Effective 1/1/2024",
+                "customfield_14702": "[Ohio Department of Taxation School Districts|https://tax.ohio.gov/static/employer_withholding/schooldistricts2024.pdf]",
+                "customfield_14703": "_None_",
+                "attachment": [],
+                "customfield_13705": "Effective January 1, 2024, the Blanchester School District in Clinton, Brown, Clermont and Warren Counties, established an earned income tax in the amount of {*}1%{*}.",
+                "duedate": null,
+                "status": {
+                    "self": "https://jiraqa/rest/api/2/status/10002",
+                    "description": "",
+                    "iconUrl": "https://jiraqa/images/icons/statuses/open.png",
+                    "name": "To Do",
+                    "id": "10002",
+                    "statusCategory": {
+                        "self": "https://jiraqa/rest/api/2/statuscategory/2",
+                        "id": 2,
+                        "key": "new",
+                        "colorName": "default",
+                        "name": "To Do"
+                    }
+                }
+            }
+        },
+        {
+            "expand": "operations,versionedRepresentations,editmeta,changelog,renderedFields",
+            "id": "709656",
+            "self": "https://jiraqa/rest/api/2/issue/709656",
+            "key": "SUSP-151065",
+            "fields": {
+                "summary": "US - North Carolina - Unemployment Insurance Taxable Wage Base, Effective 1/1/2024",
+                "description": null,
+                "fixVersions": [
+                    {
+                        "self": "https://jiraqa/rest/api/2/version/19383",
+                        "id": "19383",
+                        "description": "US Payroll Tax & Regulatory Update",
+                        "name": "RS24SAP-US-P02",
+                        "archived": false,
+                        "released": false,
+                        "releaseDate": "2024-01-25"
+                    }
+                ],
+                "customfield_14700": "_None_",
+                "customfield_14701": "_None_",
+                "customfield_14704": "US - North Carolina - Unemployment Insurance Taxable Wage Base, Effective 1/1/2024",
+                "customfield_14702": "[NC Dept of Commerce Employer Tax Rate Info |https://www.des.nc.gov/employers/tax-rate-information]",
+                "customfield_14703": "_None_",
+                "attachment": [
+                    {
+                        "self": "https://jiraqa/rest/api/2/attachment/197803",
+                        "id": "197803",
+                        "filename": "NevilleTheCat.jpg",
+                        "author": {
+                            "self": "https://jiraqa/rest/api/2/user?username=mbroz",
+                            "name": "mbroz",
+                            "key": "mbroz",
+                            "emailAddress": "mbroz@riministreet.com",
+                            "avatarUrls": {
+                                "48x48": "https://jiraqa/secure/useravatar?ownerId=mbroz&avatarId=12721",
+                                "24x24": "https://jiraqa/secure/useravatar?size=small&ownerId=mbroz&avatarId=12721",
+                                "16x16": "https://jiraqa/secure/useravatar?size=xsmall&ownerId=mbroz&avatarId=12721",
+                                "32x32": "https://jiraqa/secure/useravatar?size=medium&ownerId=mbroz&avatarId=12721"
+                            },
+                            "displayName": "Mike Broz",
+                            "active": true,
+                            "timeZone": "America/Los_Angeles"
+                        },
+                        "created": "2024-09-24T10:12:43.189-0700",
+                        "size": 74917,
+                        "mimeType": "image/jpeg",
+                        "content": "https://jiraqa/secure/attachment/197803/NevilleTheCat.jpg",
+                        "thumbnail": "https://jiraqa/secure/thumbnail/197803/_thumb_197803.png"
+                    }
+                ],
+                "customfield_13705": "Effective January 1, 2024, the Taxable Wage Base for unemployment insurance (UI), will increase to *$31,400.*",
+                "duedate": null,
+                "status": {
+                    "self": "https://jiraqa/rest/api/2/status/10002",
+                    "description": "",
+                    "iconUrl": "https://jiraqa/images/icons/statuses/open.png",
+                    "name": "To Do",
+                    "id": "10002",
+                    "statusCategory": {
+                        "self": "https://jiraqa/rest/api/2/statuscategory/2",
+                        "id": 2,
+                        "key": "new",
+                        "colorName": "default",
+                        "name": "To Do"
+                    }
+                }
+            }
+        },
+        {
+            "expand": "operations,versionedRepresentations,editmeta,changelog,renderedFields",
+            "id": "709654",
+            "self": "https://jiraqa/rest/api/2/issue/709654",
+            "key": "SUSP-151063",
+            "fields": {
+                "summary": "US - Montana - Employee's Withholding Certificate Form MW-4, Effective 1/1/2024",
+                "description": null,
+                "fixVersions": [
+                    {
+                        "self": "https://jiraqa/rest/api/2/version/19383",
+                        "id": "19383",
+                        "description": "US Payroll Tax & Regulatory Update",
+                        "name": "RS24SAP-US-P02",
+                        "archived": false,
+                        "released": false,
+                        "releaseDate": "2024-01-25"
+                    }
+                ],
+                "customfield_14700": "_None_",
+                "customfield_14701": "*Changes Include:*\r\n * *New Filing Statuses*\r\n ** Married Both Spouses Working.\r\n ** Married Filing Jointly.\r\n * *Reduced Withholding* – Line for expected large Federal adjustments, Federal itemized deductions, Montana subtractions, and/or Montana Credits.",
+                "customfield_14704": "US - Montana - Employee's Withholding Certificate Form MW-4, Effective 1/1/2024",
+                "customfield_14702": "[Montana MW-4 Form|https://mtrevenue.gov/publications/montana-employees-withholding-allowance-and-exemption-certificate-form-mw-4]\r\n[Montana Exemption Certificate PDF|https://mtrevenue.gov/wp-content/uploads/dlm_uploads/2023/12/MW-4.pdf]\r\n\r\n ",
+                "customfield_14703": "_None_",
+                "attachment": [],
+                "customfield_13705": "The Montana Department of Revenue published the Form MW-4, Montana Employee's Withholding Allowance and Exemption Certificate for 2024. The form is completely revised. The layout is changed and they no longer use withholding allowances on the form. Withholding is based on federal filing status and there is a new Multiple Jobs Worksheet and three new wage tables. The state made significant changes to their income tax system including changes to filing statuses, tax brackets, and the calculation of Montana taxable income. As a result of these changes, wage withholding determined before January 1, 2024, may not accurately reflect an employee’s actual tax liability under the new system. Employees should complete a new Form MW-4 beginning January 1, 2024, to ensure the correct amount of Montana income tax is withheld from their wages.",
+                "duedate": null,
+                "status": {
+                    "self": "https://jiraqa/rest/api/2/status/10002",
+                    "description": "",
+                    "iconUrl": "https://jiraqa/images/icons/statuses/open.png",
+                    "name": "To Do",
+                    "id": "10002",
+                    "statusCategory": {
+                        "self": "https://jiraqa/rest/api/2/statuscategory/2",
+                        "id": 2,
+                        "key": "new",
+                        "colorName": "default",
+                        "name": "To Do"
+                    }
+                }
+            }
+        },
+        {
+            "expand": "operations,versionedRepresentations,editmeta,changelog,renderedFields",
+            "id": "709652",
+            "self": "https://jiraqa/rest/api/2/issue/709652",
+            "key": "SUSP-151061",
+            "fields": {
+                "summary": "US - Maryland - Unemployment Insurance Rates, Effective 1/1/2024",
+                "description": null,
+                "fixVersions": [
+                    {
+                        "self": "https://jiraqa/rest/api/2/version/19383",
+                        "id": "19383",
+                        "description": "US Payroll Tax & Regulatory Update",
+                        "name": "RS24SAP-US-P02",
+                        "archived": false,
+                        "released": false,
+                        "releaseDate": "2024-01-25"
+                    }
+                ],
+                "customfield_14700": "_None_",
+                "customfield_14701": "||Description - Unemployment||Old Rate||New Rate||Effective Dates||\r\n|Experienced Employer Rate Range| 1.0% to 10.5%|*0.30% to 7.5%*| Jan 1 - Dec 31|\r\n|New Employer Rate|2.30% (general)\r\n5.10% (out-of-state construction employers)|*2.60% (general)*\r\n*3.30% (out-of-state construction employers)*| Jan 1 - Dec 31|\r\n\r\n \r\n\r\n ",
+                "customfield_14704": "US - Maryland - Unemployment Insurance Rates, Effective 1/1/2024",
+                "customfield_14702": "[Maryland Dept of Labor - Unemployment Insurance website|https://www.dllr.state.md.us/employment/uitaxexpratefaqs.shtml]",
+                "customfield_14703": "_None_",
+                "attachment": [],
+                "customfield_13705": "Effective January 1, 2024, the Maryland Department of Revenue announced that the tax rates are determined under tax Table A tax rate schedule.\r\n\r\n ",
+                "duedate": null,
+                "status": {
+                    "self": "https://jiraqa/rest/api/2/status/10002",
+                    "description": "",
+                    "iconUrl": "https://jiraqa/images/icons/statuses/open.png",
+                    "name": "To Do",
+                    "id": "10002",
+                    "statusCategory": {
+                        "self": "https://jiraqa/rest/api/2/statuscategory/2",
+                        "id": 2,
+                        "key": "new",
+                        "colorName": "default",
+                        "name": "To Do"
+                    }
+                }
+            }
+        },
+        {
+            "expand": "operations,versionedRepresentations,editmeta,changelog,renderedFields",
+            "id": "709650",
+            "self": "https://jiraqa/rest/api/2/issue/709650",
+            "key": "SUSP-151059",
+            "fields": {
+                "summary": "US - Maine - Specifications for Electronic Transmittal of Quarterly Income Tax Withholding, Effective 4/30/2024",
+                "description": null,
+                "fixVersions": [
+                    {
+                        "self": "https://jiraqa/rest/api/2/version/19383",
+                        "id": "19383",
+                        "description": "US Payroll Tax & Regulatory Update",
+                        "name": "RS24SAP-US-P02",
+                        "archived": false,
+                        "released": false,
+                        "releaseDate": "2024-01-25"
+                    }
+                ],
+                "customfield_14700": "_None_",
+                "customfield_14701": "*Threshold*: All required to be filed electronically.\r\n\r\n*Due Date:* April 30, 2024.\r\n\r\n*Filing Specifications:* MTP format/ASCII.\r\n\r\n*File Formats Accepted/Media Type:* Web Upload.\r\n\r\n*Filing Options:* MTP or I-File.\r\n\r\n*Paper Accepted:* No.\r\n\r\n*Testing:* TBD.\r\n\r\n*Corrections:* Amendments are processed separately.\r\n\r\n*Changes Include:*\r\n * Transmitter 'E' Record, Location 229-243, Field \"Total quarterly withholding for employer\", Length -15, Type - N, Description - \"Enter total quarterly withholding''.\r\n * Transmitter 'E' Record Location 243-257 - Any information entered in these positions will be ignored - Length 14.\r\n * Record T - Location 213 - Text change to include \"by Employer\".\r\n * Record F - Location 41 - Text change from \"Withholding Total\" to be updated as \"Unemp Total\".",
+                "customfield_14704": "US - Maine - Specifications for Electronic Transmittal of Quarterly Income Tax Withholding, Effective 4/30/2024",
+                "customfield_14702": "[Broken Maine link|https://www.maine.gov/revenue/sites/maine.gov.revenue/files/inlinefiles/DRAFT%202024_Quarterly_MEETRS-MTP_Specifications.pdf]",
+                "customfield_14703": "_None_",
+                "attachment": [],
+                "customfield_13705": "Effective for first quarter 2024 reporting, Maine Revenue Services released the Final 2024 Maine Tax Portal (MTP) File Formatting Specifications for Electronic Transmittal of Quarterly Income Tax Withholding.",
+                "duedate": null,
+                "status": {
+                    "self": "https://jiraqa/rest/api/2/status/10002",
+                    "description": "",
+                    "iconUrl": "https://jiraqa/images/icons/statuses/open.png",
+                    "name": "To Do",
+                    "id": "10002",
+                    "statusCategory": {
+                        "self": "https://jiraqa/rest/api/2/statuscategory/2",
+                        "id": 2,
+                        "key": "new",
+                        "colorName": "default",
+                        "name": "To Do"
+                    }
+                }
+            }
+        },
+        {
+            "expand": "operations,versionedRepresentations,editmeta,changelog,renderedFields",
+            "id": "709648",
+            "self": "https://jiraqa/rest/api/2/issue/709648",
+            "key": "SUSP-151057",
+            "fields": {
+                "summary": "US - Iowa Withholding Formula, Effective 1/1/2024",
+                "description": null,
+                "fixVersions": [
+                    {
+                        "self": "https://jiraqa/rest/api/2/version/19383",
+                        "id": "19383",
+                        "description": "US Payroll Tax & Regulatory Update",
+                        "name": "RS24SAP-US-P02",
+                        "archived": false,
+                        "released": false,
+                        "releaseDate": "2024-01-25"
+                    }
+                ],
+                "customfield_14700": "_None_",
+                "customfield_14701": "*Supplemental Rate:* 6.0%.\r\n\r\n*Withholding on Nonresidents:* Yes.\r\n\r\n*Withhold on Residents Working Out of State:* Yes (voluntary).\r\n\r\n*Withhold if Nonresident State does not Require Withholding:* Yes (voluntary).\r\n\r\n*Allow Credit for Nonresident State Payroll Withholding:* No.\r\n\r\n*Reciprocal States:* IL.\r\n\r\nNexus is assumed on the work state.\r\n\r\n \r\n\r\n*Changes Include:*\r\n * The Iowa withholding formula and the IA W-4 have been revised for tax year 2024 to accommodate certain changes enacted by the Iowa legislature in 2023 under Senate File 565. Because of changes reflected on the 2024 IA W-4 form, employees should be encouraged to file an updated Iowa W-4 using the 2024 IA W-4 form. For employees who do not file an updated W-4 using the 2024 IA W-4 form, employers should use $40 as the total allowance amount and $0 as the additional withholding amount when calculating these employees’ Iowa withholding amounts.\r\n ** *Step 1*: For employees who do not file an updated W-4 using the 2024 IA W-4 form: use the standard deduction amounts for total allowances less than $80.00 for the applicable pay period. The deduction amounts have been updated for 2024.\r\n ** *Step 2*: The brackets have been reduced from 4 to 3 and the highest tax rate is 5.70%. The brackets have been indexed accordingly.\r\n ** *Step 3*: The formula is changed to divide the total allowance amount reported on the employee’s IA W-4 by the number of pay periods per year.  Subtract this amount from Step 2. For employees who do not file an updated W-4 using the 2024 IA W-4 form, use $40 as the total allowance amount.\r\n ** *Step 4*: For employees who do not file an updated W-4 using the 2024 IA W-4 form, use $0 as additional withholding amount.\r\n * *New Filing Statuses*\r\n ** Other\r\n ** Head of Household.\r\n ** Married Filing Jointly.\r\n ** Married Filing Jointly/Spouse with Earned Income.",
+                "customfield_14704": "US - Iowa Withholding Formula, Effective 1/1/2024",
+                "customfield_14702": "[Iowa Dept of Revenue broken link|https://tax.iowa.gov/sites/default/files/2023-12/IowaWithholdingFormulaInstructions2024.pdf]",
+                "customfield_14703": "_None_",
+                "attachment": [],
+                "customfield_13705": "The Iowa Department of Revenue released the 2024 withholding formula and instructions.",
+                "duedate": null,
+                "status": {
+                    "self": "https://jiraqa/rest/api/2/status/10002",
+                    "description": "",
+                    "iconUrl": "https://jiraqa/images/icons/statuses/open.png",
+                    "name": "To Do",
+                    "id": "10002",
+                    "statusCategory": {
+                        "self": "https://jiraqa/rest/api/2/statuscategory/2",
+                        "id": 2,
+                        "key": "new",
+                        "colorName": "default",
+                        "name": "To Do"
+                    }
+                }
+            }
+        },
+        {
+            "expand": "operations,versionedRepresentations,editmeta,changelog,renderedFields",
+            "id": "709646",
+            "self": "https://jiraqa/rest/api/2/issue/709646",
+            "key": "SUSP-151055",
+            "fields": {
+                "summary": "US - Hawaii - Unemployment Insurance Taxable Wage Base and Rates, Effective 1/1/2024",
+                "description": null,
+                "fixVersions": [
+                    {
+                        "self": "https://jiraqa/rest/api/2/version/19383",
+                        "id": "19383",
+                        "description": "US Payroll Tax & Regulatory Update",
+                        "name": "RS24SAP-US-P02",
+                        "archived": false,
+                        "released": false,
+                        "releaseDate": "2024-01-25"
+                    }
+                ],
+                "customfield_14700": "_None_",
+                "customfield_14701": "Effective January 1, 2024, the unemployment rates for Hawaii will decrease and the contribution rate schedule for employers will be based on Schedule D.\r\n\r\n \r\n||Description||Old Rate||New Rate||Effective Dates||\r\n|Unemployment-new employer rate|4.0%|*3.0%*|Jan1 - Dec 31|\r\n|Experienced Employer Rate Range|1.2% to 6.2%|*1.2% to 5.8%*|Jan 1 - Dec 31|\r\n|Employment & Training Assessment Rate|0.01%|*0.01%*|Jan 1 - Dec 31|",
+                "customfield_14704": "US - Hawaii - Unemployment Insurance Taxable Wage Base and Rates, Effective 1/1/2024\r\n\r\n ",
+                "customfield_14702": "[Hawaii Unemployment Insurance Taxable Wage Base and Rates |http://labor.hawaii.gov/ui/tax-rate-schedule-and-weekly-benefit-amount/]\r\n[Hawaii Unemployment website|https://labor.hawaii.gov/ui/]",
+                "customfield_14703": "_None_",
+                "attachment": [],
+                "customfield_13705": "Effective January 1, 2024, the Hawaii Department of Labor and Industrial Relations released the\r\nUnemployment Insurance Taxable Wage Base at $59,100.\r\n\r\n ",
+                "duedate": null,
+                "status": {
+                    "self": "https://jiraqa/rest/api/2/status/10002",
+                    "description": "",
+                    "iconUrl": "https://jiraqa/images/icons/statuses/open.png",
+                    "name": "To Do",
+                    "id": "10002",
+                    "statusCategory": {
+                        "self": "https://jiraqa/rest/api/2/statuscategory/2",
+                        "id": 2,
+                        "key": "new",
+                        "colorName": "default",
+                        "name": "To Do"
+                    }
+                }
+            }
+        },
+        {
+            "expand": "operations,versionedRepresentations,editmeta,changelog,renderedFields",
+            "id": "709644",
+            "self": "https://jiraqa/rest/api/2/issue/709644",
+            "key": "SUSP-151053",
+            "fields": {
+                "summary": "US - Federal - Publication 1494, IRS Levy Exemption Table, Effective 1/1/2024",
+                "description": null,
+                "fixVersions": [
+                    {
+                        "self": "https://jiraqa/rest/api/2/version/19383",
+                        "id": "19383",
+                        "description": "US Payroll Tax & Regulatory Update",
+                        "name": "RS24SAP-US-P02",
+                        "archived": false,
+                        "released": false,
+                        "releaseDate": "2024-01-25"
+                    }
+                ],
+                "customfield_14700": "_None_",
+                "customfield_14701": "Tables for Figuring Amount Exempt from Levy on Wages, Salary, and Other Income (Forms 668-W(ACS) and 668-W(ICS)).\r\n\r\n*Table 1* - all values have changed for each filing status.\r\n\r\nTables for Figuring Additional Exempt amount for Taxpayers at least 65 Years Old and /or Blind.\r\n\r\n*Table 2* - all values have changed for each filing status.\r\n\r\n ",
+                "customfield_14704": "US - Federal - Publication 1494, IRS Levy Exemption Table, Effective 1/1/2024",
+                "customfield_14702": "[IRS 1494 PDF|https://www.irs.gov/pub/irs-pdf/p1494.pdf]",
+                "customfield_14703": "_None_",
+                "attachment": [],
+                "customfield_13705": "The IRS has released the 2024 version of Publication 1494, Table for Figuring Amount Exempt from\r\nLevy on Wages, Salary, and Other Income (Forms 668-W(ACS), 668-W(c)(DO) and 668-W(ICS)).\r\n\r\n ",
+                "duedate": null,
+                "status": {
+                    "self": "https://jiraqa/rest/api/2/status/10002",
+                    "description": "",
+                    "iconUrl": "https://jiraqa/images/icons/statuses/open.png",
+                    "name": "To Do",
+                    "id": "10002",
+                    "statusCategory": {
+                        "self": "https://jiraqa/rest/api/2/statuscategory/2",
+                        "id": 2,
+                        "key": "new",
+                        "colorName": "default",
+                        "name": "To Do"
+                    }
+                }
+            }
+        },
+        {
+            "expand": "operations,versionedRepresentations,editmeta,changelog,renderedFields",
+            "id": "709642",
+            "self": "https://jiraqa/rest/api/2/issue/709642",
+            "key": "SUSP-151051",
+            "fields": {
+                "summary": "US - Federal - IRS Tax Year 2024 Form 941 (Adobe), Effective 4/30/2024",
+                "description": null,
+                "fixVersions": [
+                    {
+                        "self": "https://jiraqa/rest/api/2/version/19383",
+                        "id": "19383",
+                        "description": "US Payroll Tax & Regulatory Update",
+                        "name": "RS24SAP-US-P02",
+                        "archived": false,
+                        "released": false,
+                        "releaseDate": "2024-01-25"
+                    }
+                ],
+                "customfield_14700": "_None_",
+                "customfield_14701": "*Changes Include:*\r\n * The form is now (Rev. March 2024).\r\n * The year is changed to 2024 throughout.\r\n * The number in the top right corner is changed to 950124.\r\n * On the line for Part 1: added \"Employers in American Samoa, Guam, the Commonwealth of the Northern Mariana Islands, the U.S. Virgin Islands, and Puerto Rico can skip lines 2 and 3, unless you have employees who are subject to U.S. income tax withholding.\r\n * Lines 5a i and 5a (ii) are removed and the box to the right with instructions regarding qualified sick leave is removed.\r\n * On line 5e removed 5a i and 5a(ii) from the total calculation.\r\n * Line 11a is now line 11 and line 13a is now line 13.\r\n * Lines 11b through 11g are removed and lines 13b through 13i are removed which shifts lines 12 through 15 to page one.\r\n * Line 12 now says: Subtract line 11 from line 10.\r\n * Line 14 now says: If line 12 is more than line 13.\r\n * Line 15 now says: If line 13 is more.\r\n * The next line says: You MUST complete both pages of Form 941 and SIGN it.\r\n * The bottom right footer is changed to (Rev. 3-2024).\r\n * On page two the number in the top right corner is now 950224.\r\n * In Part 3: lines 19 through 28 are removed.\r\n * Part 5 now says: You MUST complete both pages.\r\n * On page two the bottom right footer is changed to (Rev. 3-2024).\r\n * On the Payment Voucher page under Specific Instructions the sentence about applying online now says: \"by going to www.irs.gov/EIN.\"",
+                "customfield_14704": "US - Federal - IRS Tax Year 2024 Form 941, Effective 4/30/2024\r\n\r\n ",
+                "customfield_14702": "[IRS 941 Form PDF|https://www.irs.gov/pub/irs-pdf/f941.pdf]",
+                "customfield_14703": "_None_",
+                "attachment": [],
+                "customfield_13705": "The Internal Revenue Service published a Draft Form 941, Employer's Quarterly Federal Tax Return\r\nfor use in the first quarter 2024.\r\n\r\n ",
+                "duedate": null,
+                "status": {
+                    "self": "https://jiraqa/rest/api/2/status/10002",
+                    "description": "",
+                    "iconUrl": "https://jiraqa/images/icons/statuses/open.png",
+                    "name": "To Do",
+                    "id": "10002",
+                    "statusCategory": {
+                        "self": "https://jiraqa/rest/api/2/statuscategory/2",
+                        "id": 2,
+                        "key": "new",
+                        "colorName": "default",
+                        "name": "To Do"
+                    }
+                }
+            }
+        }
+    ]
+}

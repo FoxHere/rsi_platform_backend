@@ -14,11 +14,15 @@ export class ReleaseService {
   findAllReleases(filters: any): Observable<any> {
     // Create a inicial jql to use the fixed query to retrieve information
     let jqlQuery =
-      "project = 'SAP US Payroll' AND type = 'Release Tracker' AND labels = Document AND ReleaseDate > startOfYear()";
+      "type = 'Release Tracker' AND labels = Document AND ReleaseDate > startOfYear()";
 
     // Apply filters if exists ----------------------------------------------------
     filters.productLine
       ? (jqlQuery += ` AND "Product Line" = "${filters.productLine}"`)
+      : jqlQuery;
+
+    filters.applicationArea
+      ? (jqlQuery += ` AND "Application Area" = ${filters.applicationArea}`)
       : jqlQuery;
     //-----------------------------------------------------------------------------
 
