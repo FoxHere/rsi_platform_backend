@@ -45,7 +45,7 @@ export class TrasformerJirawikiToHtml {
       // Converting underlined
       text = text.replace(/\+(.*?)\+/g, '$1');
       // Converting Strike
-      text = text.replace(/\s-(.*?)-(\s?)/g, '$1');
+      text = text.replace(/\s-\S\D+?(.*?)\S-(\s?)/g, '$1');
       // Converting subscript
       text = text.replace(/~(.*?)~/g, '$1');
       // Converting superscript
@@ -60,6 +60,8 @@ export class TrasformerJirawikiToHtml {
       text = text.replace(/\*(.*?)\*/g, '$1');
       // Converting code block
       text = text.replace(/{code:?.*}(.*?){code}/gs, '$1');
+      // Removing unecessary line break
+      text = text.replace(/(\r\n)/g, '');
     }
     return text;
   }
@@ -86,7 +88,7 @@ export class TrasformerJirawikiToHtml {
       // Converting underlined
       html = html.replace(/\+(\S.*?)\+/g, '<u>$1</u>'); //----------------- fixed by card GPDIP-387
       // Converting Strike
-      html = html.replace(/\s-(\S.*?)-(\s?)/g, ' <del>$1</del> '); //----------------- fixed by card GPDIP-387
+      html = html.replace(/\s-\S\D(\S.*?)\S-(\s?)/g, ' <del>$1</del> '); //----------------- fixed by card GPDIP-492
       // Converting subscript
       html = html.replace(/~(.*?)~/g, '<sub>$1</sub>');
       // Converting superscript

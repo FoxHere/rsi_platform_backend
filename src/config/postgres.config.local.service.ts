@@ -16,7 +16,7 @@ export class PostgresConfigLocalService implements TypeOrmOptionsFactory {
       username: this.configService.get<string>('LOCAL_DB_USERNAME'),
       password: this.configService.get<string>('LOCAL_DB_PASSWORD'),
       database: this.configService.get<string>('LOCAL_DB_NAME'),
-      entities: [__dirname + '/../**/*.entity{.js,.ts}'],
+      entities: [__dirname + '/../**/**/**/*.entity{.js,.ts}'],
       synchronize: true,
     };
   }

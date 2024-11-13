@@ -2,7 +2,7 @@ import { BadGatewayException, HttpException, Injectable } from '@nestjs/common';
 import { InjectDataSource, InjectRepository } from '@nestjs/typeorm';
 import { DataSource, Repository } from 'typeorm';
 import { JiraLocalDatabaseEntity } from './entities/jira_local_database.entity';
-import { JiraApiService } from '../jira_api/jira_api.service';
+import { JiraApiService } from '../../jira_api/jira_api.service';
 import { lastValueFrom } from 'rxjs';
 
 @Injectable()
