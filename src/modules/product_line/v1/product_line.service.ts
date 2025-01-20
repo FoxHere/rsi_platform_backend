@@ -40,7 +40,7 @@ export class ProductLineService {
 
   async update(id: string, updateProductLineDto: UpdateProductLineDto) {
     const { application_area, ...productlineProps } = updateProductLineDto;
-    const applicationAreaIds = updateProductLineDto.application_area.map(
+    const applicationAreaIds = application_area.map(
       (item) => item.application_area_id,
     );
 

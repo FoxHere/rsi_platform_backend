@@ -100,9 +100,11 @@ export class JiraApiService {
 
     return this.httpService.post('/search', body).pipe(
       map((response) => response.data),
-      map((data) => {
-        return this.jiraApiNewFieldsMappingService.mapNewCustomFields(data);
-      }),
+      map(async (data) => {
+        return await this.jiraApiNewFieldsMappingService.mapNewCustomFields(
+          data,
+        );
+      },),
     );
   }
 

@@ -18,8 +18,8 @@ export class ApplicationAreaController {
   ) {}
 
   @Post()
-  create(@Body() createApplicationAreaDto: CreateApplicationAreaDto) {
-    return this.applicationAreaService.create(createApplicationAreaDto);
+  async create(@Body() createApplicationAreaDto: CreateApplicationAreaDto) {
+    return await this.applicationAreaService.create(createApplicationAreaDto);
   }
 
   @Get()
