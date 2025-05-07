@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+/* import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { TypeOrmModuleOptions, TypeOrmOptionsFactory } from '@nestjs/typeorm';
 
@@ -20,4 +20,4 @@ export class PostgresConfigJirareplicaService implements TypeOrmOptionsFactory {
       synchronize: false,
     };
   }
-}
+} */

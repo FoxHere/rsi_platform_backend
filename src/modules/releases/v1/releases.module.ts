@@ -5,6 +5,8 @@ import { HttpModule } from '@nestjs/axios';
 import { ConfigService } from '@nestjs/config';
 import * as https from 'https';
 import { MappingReleaseFieldsService } from './mapping/mapping.release_fields.service';
+import { TrasformerJirawikiToHtml } from 'src/common/transformers/transformers.jirawiki_to_html.service';
+import { EncryptionService } from 'src/common/utils/utils.encryption.service';
 
 @Module({
   imports: [
@@ -24,6 +26,12 @@ import { MappingReleaseFieldsService } from './mapping/mapping.release_fields.se
     }),
   ],
   controllers: [ReleaseController],
-  providers: [ReleaseService, ConfigService, MappingReleaseFieldsService],
+  providers: [
+    ReleaseService,
+    ConfigService,
+    MappingReleaseFieldsService,
+    EncryptionService,
+    TrasformerJirawikiToHtml,
+  ],
 })
 export class ReleasesModule {}

@@ -1,6 +1,12 @@
 import { HttpService } from '@nestjs/axios';
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { lastValueFrom, map, Observable } from 'rxjs';
+import {
+  BadRequestException,
+  HttpException,
+  HttpStatus,
+  Injectable,
+  InternalServerErrorException,
+} from '@nestjs/common';
+import { catchError, lastValueFrom, map, Observable, throwError } from 'rxjs';
 import { JiraCustomFields } from 'src/common/helpers/helpers.custom_fields.enum';
 import { EncryptionService } from 'src/common/utils/utils.encryption.service';
 import { MappingUpdateFieldsService } from 'src/modules/documents/pddocument/v1/mapping/mapping.update_fields.service';
@@ -14,9 +20,11 @@ export class PddocumentService {
   ) {}
 
   buildPdDocuments(fixVersion: string): Observable<any> {
-    const fixVersionStr = fixVersion ?? 'RS24SAP-US-P01';
+    const fixVersionStr = fixVersion ?? '';
     const body = {
-      jql: `fixVersion = '${fixVersionStr}' and type = Epic`,
+      jql: `fixVersion = '${fixVersionStr}' AND type in (Epic, Story, Documentation) AND "Legislative Title" is not EMPTY`,
+      // jql: `fixVersion = '19147' and type = Epic AND key=RSITE-55922`,
+      maxResults: 7000,
       fields: [
         JiraCustomFields.Key,
         JiraCustomFields.Summary,
@@ -34,6 +42,22 @@ export class PddocumentService {
       map((response) => response.data),
       map((data) => {
         return this.mappingUpdatesFields.mapUpdateFields(data);
+      }),
+      catchError((err) => {
+        if (err.code === 'ERR_BAD_REQUEST') {
+          return throwError(
+            () =>
+              new BadRequestException(
+                `The value '${fixVersion}' does not exist for the field 'fixVersion'`,
+              ),
+          );
+        }
+        if (err instanceof HttpException) {
+          return throwError(() => err);
+        }
+        return throwError(
+          () => new InternalServerErrorException('Unexpected error occured'),
+        );
       }),
     );
   }

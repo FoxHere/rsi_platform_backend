@@ -9,6 +9,7 @@ import {
 import { PddocumentService } from './pddocument.service';
 import { lastValueFrom } from 'rxjs';
 import { Response } from 'express';
+import { FindAttachmentDto } from './dto/find_attachment.dto';
 
 @Controller({ path: 'pddocument', version: '1' })
 export class PddocumentController {
@@ -22,19 +23,18 @@ export class PddocumentController {
 
   @Get('attachment')
   async findOneAttachment(
-    @Query('fileId') fileId: string,
-    @Query('fileName') fileName: string,
+    @Query() query: FindAttachmentDto,
     @Res() res: Response,
   ): Promise<StreamableFile> {
     try {
-      // Request to service the document stream
-      const documentStream =
-        await this.pddocumentService.getDocumentStream(fileId);
+      const documentStream = await this.pddocumentService.getDocumentStream(
+        query.fileId,
+      );
 
       res.setHeader('Content-Type', 'application/octet-stream');
       res.setHeader(
         'Content-Disposition',
-        `attachment; filename="${fileName}"`,
+        `attachment; filename="${query.fileName}"`,
       );
       return new StreamableFile(documentStream.pipe(res));
     } catch (error) {

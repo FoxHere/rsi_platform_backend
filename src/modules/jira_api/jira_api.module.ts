@@ -16,7 +16,7 @@ import { EncryptionService } from '../../common/utils/utils.encryption.service';
       inject: [ConfigService],
       // use factory to configure httpmodule
       useFactory: async (configService: ConfigService) => ({
-        baseURL: 'https://jiraqa/rest/api/2',
+        baseURL: await configService.get('BASE_URL_v2'),
         headers: {
           Authorization: `Bearer ${await configService.get('JIRA_TOKEN')}`,
           Accept: 'application/json',

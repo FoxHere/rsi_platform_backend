@@ -3,15 +3,28 @@ import {
   JiraRelease,
   JiraReleaseUpdate,
 } from '../interfaces/jira-release.interface';
+import { JiraCustomFields } from 'src/common/helpers/helpers.custom_fields.enum';
+import { TrasformerJirawikiToHtml } from 'src/common/transformers/transformers.jirawiki_to_html.service';
 
 @Injectable()
 export class MappingReleaseFieldsService {
-  mapReleaseFields(data: any): JiraRelease {
-    const mappedReleases: JiraReleaseUpdate[] = data.issues.map(
-      (release: any) => {
+  constructor(private localTransform: TrasformerJirawikiToHtml) {}
+  async mapReleaseFields(data: any): Promise<any> {
+    const mappedReleasesPromises: JiraReleaseUpdate[] = data.issues.map(
+      async (release: any) => {
+        const ImagesAttachment = this.extractImageAttachments(
+          release.fields[JiraCustomFields.Attachments],
+        );
         return {
           version: release.fields.fixVersions[0].name,
           releaseStatus: release.fields.status.name,
+          specialNotes:
+            release.fields[JiraCustomFields.specialNotes] != null
+              ? await this.localTransform.conversor(
+                  release.fields[JiraCustomFields.specialNotes],
+                  ImagesAttachment,
+                )
+              : '',
           description:
             release.fields.fixVersions[0].description != null
               ? release.fields.fixVersions[0].description
@@ -24,10 +37,15 @@ export class MappingReleaseFieldsService {
         };
       },
     );
-
+    const mappedReleases = await Promise.all(mappedReleasesPromises);
     return {
       total: data.total,
       issues: mappedReleases,
     };
+  }
+  extractImageAttachments(attachments: any[]): string[] {
+    return attachments
+      .filter((attachment) => attachment.mimeType.startsWith('image'))
+      .map((attachment) => attachment);
   }
 }
