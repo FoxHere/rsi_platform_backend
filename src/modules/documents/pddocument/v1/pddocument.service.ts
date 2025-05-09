@@ -6,7 +6,16 @@ import {
   Injectable,
   InternalServerErrorException,
 } from '@nestjs/common';
-import { catchError, lastValueFrom, map, Observable, throwError } from 'rxjs';
+import {
+  catchError,
+  forkJoin,
+  lastValueFrom,
+  map,
+  Observable,
+  of,
+  switchMap,
+  throwError,
+} from 'rxjs';
 import { JiraCustomFields } from 'src/common/helpers/helpers.custom_fields.enum';
 import { EncryptionService } from 'src/common/utils/utils.encryption.service';
 import { MappingUpdateFieldsService } from 'src/modules/documents/pddocument/v1/mapping/mapping.update_fields.service';
@@ -18,6 +27,24 @@ export class PddocumentService {
     private mappingUpdatesFields: MappingUpdateFieldsService,
     private encryptionService: EncryptionService,
   ) {}
+
+  getSpecialNotes(fixVersion: string): Observable<any> {
+    const body = {
+      jql: `type = 'Release Tracker' AND fixVersion = ${fixVersion}`,
+      fields: [
+        JiraCustomFields.specialNotes,
+        JiraCustomFields.FixVersions,
+        JiraCustomFields.Attachments,
+      ],
+    };
+    return this.httpService.post('/search', body).pipe(
+      map((response) => response.data),
+      switchMap((data) => {
+        return this.mappingUpdatesFields.mapSingleField(data);
+      }),
+      catchError(() => of('')),
+    );
+  }
 
   buildPdDocuments(fixVersion: string): Observable<any> {
     const fixVersionStr = fixVersion ?? '';
@@ -38,11 +65,21 @@ export class PddocumentService {
       ],
     };
 
-    return this.httpService.post('/search', body).pipe(
+    const issuesRequest$ = this.httpService.post('/search', body).pipe(
       map((response) => response.data),
-      map((data) => {
+      switchMap((data) => {
         return this.mappingUpdatesFields.mapUpdateFields(data);
       }),
+      catchError(() => of('')),
+    );
+    const specialNotes$ = this.getSpecialNotes(fixVersionStr);
+
+    return forkJoin([issuesRequest$, specialNotes$]).pipe(
+      map(([issuesData, specialNotes]) => ({
+        total: issuesData.length,
+        specialNotes: specialNotes,
+        issues: issuesData,
+      })),
       catchError((err) => {
         if (err.code === 'ERR_BAD_REQUEST') {
           return throwError(
@@ -60,6 +97,29 @@ export class PddocumentService {
         );
       }),
     );
+
+    // return this.httpService.post('/search', body).pipe(
+    //   map((response) => response.data),
+    //   map((data) => {
+    //     return this.mappingUpdatesFields.mapUpdateFields(data);
+    //   }),
+    //   catchError((err) => {
+    //     if (err.code === 'ERR_BAD_REQUEST') {
+    //       return throwError(
+    //         () =>
+    //           new BadRequestException(
+    //             `The value '${fixVersion}' does not exist for the field 'fixVersion'`,
+    //           ),
+    //       );
+    //     }
+    //     if (err instanceof HttpException) {
+    //       return throwError(() => err);
+    //     }
+    //     return throwError(
+    //       () => new InternalServerErrorException('Unexpected error occured'),
+    //     );
+    //   }),
+    // );
   }
 
   async getDocumentStream(encryptedValue: string): Promise<any> {
