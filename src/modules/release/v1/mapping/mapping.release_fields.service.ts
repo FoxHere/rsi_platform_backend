@@ -9,7 +9,11 @@ import { TrasformerJirawikiToHtml } from 'src/common/transformers/transformers.j
 @Injectable()
 export class MappingReleaseFieldsService {
   constructor(private localTransform: TrasformerJirawikiToHtml) {}
-  async mapReleaseFields(data: any): Promise<any> {
+
+  async mapReleaseFields(
+    data: any,
+    hasSpecialNotes: boolean = true,
+  ): Promise<any> {
     const mappedReleasesPromises: JiraReleaseUpdate[] = data.issues.map(
       async (release: any) => {
         const ImagesAttachment = this.extractImageAttachments(
@@ -17,22 +21,27 @@ export class MappingReleaseFieldsService {
         );
         return {
           version: release.fields.fixVersions[0].name,
+          projectkey: release.fields.project.key,
           releaseStatus: release.fields.status.name,
-          specialNotes:
-            release.fields[JiraCustomFields.specialNotes] != null
-              ? await this.localTransform.conversor(
-                  release.fields[JiraCustomFields.specialNotes],
-                  ImagesAttachment,
-                )
-              : '',
+          project: release.fields.project.key,
+          ApplicationArea:
+            release.fields[JiraCustomFields.ApplicationArea] ?? '',
+          productLine: release.fields[JiraCustomFields.productLine] ?? '',
+          SPT: release.fields[JiraCustomFields.SPT] ?? '',
+          Country: release.fields[JiraCustomFields.Country] ?? '',
+          ...(hasSpecialNotes && {
+            specialNotes:
+              release.fields[JiraCustomFields.specialNotes] != null
+                ? await this.localTransform.conversor(
+                    release.fields[JiraCustomFields.specialNotes],
+                    ImagesAttachment,
+                  )
+                : '',
+          }),
           description:
-            release.fields.fixVersions[0].description != null
-              ? release.fields.fixVersions[0].description
-              : 'To Be Determined',
+            release.fields.fixVersions[0].description ?? 'To Be Determined',
           dueDate:
-            release.fields.fixVersions[0].releaseDate != null
-              ? release.fields.fixVersions[0].releaseDate
-              : 'To Be Determined',
+            release.fields.fixVersions[0].releaseDate ?? 'To Be Determined',
           // : release.fields.fixVersions[0].releaseDate,
         };
       },

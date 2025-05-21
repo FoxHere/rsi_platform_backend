@@ -39,26 +39,26 @@ export class JiraApiNewCFMappingService {
         key: issue[JiraCustomFields.Key],
         summary: issue.fields[JiraCustomFields.Summary],
         legislative_title: await this.transformer.removeWiki(
-          issue.fields[JiraCustomFields.LegislativeTitle],
+          issue.fields[JiraCustomFields.lTitle],
         ),
         legislative_summary: await this.transformer.conversor(
-          issue.fields[JiraCustomFields.LegislativeSummary],
+          issue.fields[JiraCustomFields.lSummary],
           ImagesAttachment,
         ),
         legislative_description: await this.transformer.conversor(
-          issue.fields[JiraCustomFields.LegislativeDescription],
+          issue.fields[JiraCustomFields.lDescription],
           ImagesAttachment,
         ),
 
         legislativeSourceLinks: await this.transformer.extrancLinksToJson(
-          issue.fields[JiraCustomFields.LegislativeSourceLinks],
+          issue.fields[JiraCustomFields.lSourceLinks],
         ),
         legislative_business_impact: await this.transformer.conversor(
-          issue.fields[JiraCustomFields.LegislativeBusinessImpact],
+          issue.fields[JiraCustomFields.lBusinessImpact],
           ImagesAttachment,
         ),
         legislative_system_impact: await this.transformer.conversor(
-          issue.fields[JiraCustomFields.LegislativeSystemImpact],
+          issue.fields[JiraCustomFields.lSystemImpact],
           ImagesAttachment,
         ),
         // Field that will return all attachments

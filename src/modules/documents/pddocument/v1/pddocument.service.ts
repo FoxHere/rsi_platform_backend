@@ -34,6 +34,7 @@ export class PddocumentService {
       fields: [
         JiraCustomFields.specialNotes,
         JiraCustomFields.FixVersions,
+        JiraCustomFields.project,
         JiraCustomFields.Attachments,
       ],
     };
@@ -49,18 +50,17 @@ export class PddocumentService {
   buildPdDocuments(fixVersion: string): Observable<any> {
     const fixVersionStr = fixVersion ?? '';
     const body = {
-      jql: `fixVersion = '${fixVersionStr}' AND type in (Epic, Story, Documentation) AND "Legislative Title" is not EMPTY`,
-      // jql: `fixVersion = '19147' and type = Epic AND key=RSITE-55922`,
-      maxResults: 7000,
+      jql: ` fixVersion = '${fixVersionStr}' AND type in (Epic, Story, Documentation) AND "Legislative Title" is not EMPTY AND "Legislative Title" !~ "<None>"`,
+      maxResults: 1000,
       fields: [
         JiraCustomFields.Key,
         JiraCustomFields.Summary,
-        JiraCustomFields.LegislativeTitle,
-        JiraCustomFields.LegislativeSummary,
-        JiraCustomFields.LegislativeDescription,
-        JiraCustomFields.LegislativeSourceLinks,
-        JiraCustomFields.LegislativeBusinessImpact,
-        JiraCustomFields.LegislativeSystemImpact,
+        JiraCustomFields.lTitle,
+        JiraCustomFields.lSummary,
+        JiraCustomFields.lDescription,
+        JiraCustomFields.lSourceLinks,
+        JiraCustomFields.lBusinessImpact,
+        JiraCustomFields.lSystemImpact,
         JiraCustomFields.Attachments,
       ],
     };
@@ -77,7 +77,7 @@ export class PddocumentService {
     return forkJoin([issuesRequest$, specialNotes$]).pipe(
       map(([issuesData, specialNotes]) => ({
         total: issuesData.length,
-        specialNotes: specialNotes,
+        specialNotes: specialNotes ?? '',
         issues: issuesData,
       })),
       catchError((err) => {

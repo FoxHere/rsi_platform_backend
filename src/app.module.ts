@@ -4,7 +4,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 import { PostgresConfigLocalService } from './config/postgres.config.local.service';
 import { PddocumentModule } from './modules/documents/pddocument/v1/pddocument.module';
-import { ReleasesModule } from './modules/releases/v1/releases.module';
+import { ReleasesModule } from './modules/release/v1/release.module';
 import { FilterFieldsModule } from './modules/filter_fields/v1/filter_fields.module';
 import { ProductLineModule } from './modules/product_line/v1/product_line.module';
 import { ApplicationAreaModule } from './modules/application_area/v1/application_area.module';

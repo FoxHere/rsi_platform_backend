@@ -1,5 +1,10 @@
 import { HttpService } from '@nestjs/axios';
-import { Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  HttpException,
+  Injectable,
+  InternalServerErrorException,
+} from '@nestjs/common';
 import { ExceptionsHandler } from '@nestjs/core/exceptions/exceptions-handler';
 import { firstValueFrom } from 'rxjs';
 import sharp from 'sharp';
@@ -12,7 +17,7 @@ export class TrasformerJirawikiToHtml {
     private readonly encryptService: EncryptionService,
   ) {}
 
-  extrancLinksToJson(text) {
+  extrancLinksToJson(text: any) {
     const linkRegex = /\[(.*?)\|(.*?)$\]|\[(.*?)\]+/g;
     let match: RegExpExecArray;
     let linkCount = 0;
@@ -457,15 +462,17 @@ export class TrasformerJirawikiToHtml {
     // Create a list of attachments
     const documents = [];
     // Mapp all attachments and push it to document list
-    attachments.map((attachment) => {
-      documents.push({
-        file_name: attachment.filename,
-        // Implement right here to encryption function to encrypt the Id before send it
-        file_id: this.encryptService.encrypt(attachment.id),
-        file_size: attachment.size.toString(),
-        //file_type: attachment.mimeType,
+    if (attachments.length != 0) {
+      attachments.map((attachment) => {
+        documents.push({
+          file_name: attachment.filename,
+          // Implement right here to encryption function to encrypt the Id before send it
+          file_id: this.encryptService.encrypt(attachment.id),
+          file_size: attachment.size.toString(),
+          //file_type: attachment.mimeType,
+        });
       });
-    });
+    }
 
     return documents;
   }
@@ -497,7 +504,9 @@ export class TrasformerJirawikiToHtml {
       return `data:image/webp;base64,${resizedImage.toString('base64')}`;
     } catch (error) {
       console.error('Failed', error);
-      throw error;
+      if (error.code == 'ERR_BAD_REQUEST') throw new BadRequestException();
+      if (error instanceof HttpException) throw error;
+      throw new InternalServerErrorException();
     }
   }
 }

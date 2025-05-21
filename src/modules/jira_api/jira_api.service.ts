@@ -54,12 +54,12 @@ export class JiraApiService {
       fields: [
         JiraCustomFields.Key,
         JiraCustomFields.Summary,
-        JiraCustomFields.LegislativeTitle,
-        JiraCustomFields.LegislativeSummary,
-        JiraCustomFields.LegislativeDescription,
-        JiraCustomFields.LegislativeSourceLinks,
-        JiraCustomFields.LegislativeBusinessImpact,
-        JiraCustomFields.LegislativeSystemImpact,
+        JiraCustomFields.lTitle,
+        JiraCustomFields.lSummary,
+        JiraCustomFields.lDescription,
+        JiraCustomFields.lSourceLinks,
+        JiraCustomFields.lBusinessImpact,
+        JiraCustomFields.lSystemImpact,
         JiraCustomFields.Attachments,
       ],
     };
@@ -88,12 +88,12 @@ export class JiraApiService {
       fields: [
         JiraCustomFields.Key,
         JiraCustomFields.Summary,
-        JiraCustomFields.LegislativeTitle,
-        JiraCustomFields.LegislativeSummary,
-        JiraCustomFields.LegislativeDescription,
-        JiraCustomFields.LegislativeSourceLinks,
-        JiraCustomFields.LegislativeBusinessImpact,
-        JiraCustomFields.LegislativeSystemImpact,
+        JiraCustomFields.lTitle,
+        JiraCustomFields.lSummary,
+        JiraCustomFields.lDescription,
+        JiraCustomFields.lSourceLinks,
+        JiraCustomFields.lBusinessImpact,
+        JiraCustomFields.lSystemImpact,
         JiraCustomFields.Attachments,
       ],
     };
@@ -104,7 +104,7 @@ export class JiraApiService {
         return await this.jiraApiNewFieldsMappingService.mapNewCustomFields(
           data,
         );
-      },),
+      }),
     );
   }
 

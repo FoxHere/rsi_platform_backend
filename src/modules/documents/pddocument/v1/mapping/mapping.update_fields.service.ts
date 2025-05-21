@@ -23,8 +23,8 @@ export class MappingUpdateFieldsService {
     const mappedFieldsPromises = data.issues
       .filter(
         (issue: any) =>
-          issue.fields[JiraCustomFields.LegislativeSummary] != null &&
-          issue.fields[JiraCustomFields.LegislativeSummary] != '',
+          issue.fields[JiraCustomFields.lSummary] != null &&
+          issue.fields[JiraCustomFields.lSummary] != '',
       )
       .map(async (issue: any) => {
         const ImagesAttachment = this.extractImageAttachments(
@@ -35,38 +35,43 @@ export class MappingUpdateFieldsService {
           id: String(issue.id),
           key: issue[JiraCustomFields.Key],
           summary: issue.fields[JiraCustomFields.Summary],
-          legislative_title: await this.localTransform.removeWiki(
-            issue.fields[JiraCustomFields.LegislativeTitle],
+          lTitle: await this.localTransform.removeWiki(
+            issue.fields[JiraCustomFields.lTitle],
           ),
-          legislative_summary: await this.localTransform.conversor(
-            issue.fields[JiraCustomFields.LegislativeSummary],
+          lSummary: await this.localTransform.conversor(
+            issue.fields[JiraCustomFields.lSummary],
             ImagesAttachment,
           ),
-          legislative_description: await this.localTransform.conversor(
-            issue.fields[JiraCustomFields.LegislativeDescription],
+          lDescription: await this.localTransform.conversor(
+            issue.fields[JiraCustomFields.lDescription],
             ImagesAttachment,
           ),
-
-          legislativeSourceLinks: await this.localTransform.extrancLinksToJson(
-            issue.fields[JiraCustomFields.LegislativeSourceLinks],
+          lSourceLinks: this.localTransform.extrancLinksToJson(
+            issue.fields[JiraCustomFields.lSourceLinks],
           ),
-          legislative_business_impact: await this.localTransform.conversor(
-            issue.fields[JiraCustomFields.LegislativeBusinessImpact],
+          lBusinessImpact: await this.localTransform.conversor(
+            issue.fields[JiraCustomFields.lBusinessImpact],
             ImagesAttachment,
           ),
-          legislative_system_impact: await this.localTransform.conversor(
-            issue.fields[JiraCustomFields.LegislativeSystemImpact],
+          lSystemImpact: await this.localTransform.conversor(
+            issue.fields[JiraCustomFields.lSystemImpact],
             ImagesAttachment,
           ),
-          // Field that will return all attachments
-          doc_attachments: await this.localTransform.extractDocAttachments(
-            issue.fields[JiraCustomFields.Attachments],
+          configSteps: await this.localTransform.conversor(
+            issue.fields[JiraCustomFields.ConfigurationSteps],
+          ),
+          userGuide: await this.localTransform.conversor(
+            issue.fields[JiraCustomFields.UserGuide],
           ),
           // Fields that dont need transformation
-          product_line: '',
-          application_area: '',
-          country: '',
-          spt: '',
+          productLine: issue.fields[JiraCustomFields.productLine] ?? '',
+          applicationArea: issue.fields[JiraCustomFields.ApplicationArea] ?? '',
+          country: issue.fields[JiraCustomFields.Country] ?? '',
+          spt: issue.fields[JiraCustomFields.SPT] ?? '',
+          // Field that will return all attachments
+          attachments: await this.localTransform.extractDocAttachments(
+            issue.fields[JiraCustomFields.Attachments],
+          ),
         };
       });
 
