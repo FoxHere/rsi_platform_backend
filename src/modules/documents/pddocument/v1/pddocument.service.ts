@@ -18,13 +18,13 @@ import {
 } from 'rxjs';
 import { JiraCustomFields } from 'src/common/helpers/helpers.custom_fields.enum';
 import { EncryptionService } from 'src/common/utils/utils.encryption.service';
-import { MappingUpdateFieldsService } from 'src/modules/documents/pddocument/v1/mapping/mapping.update_fields.service';
+import { MappingUpdateFieldsServiceOld } from 'src/modules/documents/pddocument/v1/mapping/mapping.update_fields.service';
 
 @Injectable()
 export class PddocumentService {
   constructor(
     private httpService: HttpService,
-    private mappingUpdatesFields: MappingUpdateFieldsService,
+    private mappingUpdatesFields: MappingUpdateFieldsServiceOld,
     private encryptionService: EncryptionService,
   ) {}
 

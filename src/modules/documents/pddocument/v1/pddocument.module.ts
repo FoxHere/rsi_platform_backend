@@ -2,11 +2,11 @@ import { Module } from '@nestjs/common';
 import { PddocumentService } from './pddocument.service';
 import { PddocumentController } from './pddocument.controller';
 import { EncryptionService } from 'src/common/utils/utils.encryption.service';
-import { MappingUpdateFieldsService } from './mapping/mapping.update_fields.service';
 import { TrasformerJirawikiToHtml } from 'src/common/transformers/transformers.jirawiki_to_html.service';
 import { ConfigService } from '@nestjs/config';
 import { HttpModule } from '@nestjs/axios';
 import * as https from 'https';
+import { MappingUpdateFieldsServiceOld } from './mapping/mapping.update_fields.service';
 
 @Module({
   imports: [
@@ -30,7 +30,7 @@ import * as https from 'https';
   providers: [
     PddocumentService,
     EncryptionService,
-    MappingUpdateFieldsService,
+    MappingUpdateFieldsServiceOld,
     TrasformerJirawikiToHtml,
     ConfigService,
   ],

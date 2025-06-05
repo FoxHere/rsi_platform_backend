@@ -25,7 +25,7 @@ export class TrasformerJirawikiToHtml {
 
     while ((match = linkRegex.exec(text)) !== null) {
       linkCount++;
-      const link_name =
+      const name =
         match[3].split('|')[1] !== undefined
           ? match[3].trim().split('|')[0].charAt(0).toUpperCase() +
             match[3].trim().split('|')[0].slice(1).toString()
@@ -33,7 +33,7 @@ export class TrasformerJirawikiToHtml {
       const url = match[3].trim().split('|')[1]
         ? `<a href='${match[3].trim().split('|')[1]}'>${match[3].trim().split('|')[1]}</a>`
         : `<a href='${match[3].trim().split('|')[0]}'>${match[3].trim().split('|')[0]}</a>`;
-      links.push({ link_name, link_source: url });
+      links.push({ name, source: url });
     }
 
     return links;
@@ -465,10 +465,10 @@ export class TrasformerJirawikiToHtml {
     if (attachments.length != 0) {
       attachments.map((attachment) => {
         documents.push({
-          file_name: attachment.filename,
+          fileName: attachment.filename,
           // Implement right here to encryption function to encrypt the Id before send it
-          file_id: this.encryptService.encrypt(attachment.id),
-          file_size: attachment.size.toString(),
+          fileId: this.encryptService.encrypt(attachment.id),
+          fileSize: attachment.size.toString(),
           //file_type: attachment.mimeType,
         });
       });

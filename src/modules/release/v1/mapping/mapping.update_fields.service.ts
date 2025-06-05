@@ -3,7 +3,7 @@ import { JiraCustomFields } from 'src/common/helpers/helpers.custom_fields.enum'
 import { TrasformerJirawikiToHtml } from 'src/common/transformers/transformers.jirawiki_to_html.service';
 
 @Injectable()
-export class MappingUpdateFieldsServiceOld {
+export class MappingUpdateFieldsService {
   constructor(private localTransform: TrasformerJirawikiToHtml) {}
 
   async mapSingleField(data: any): Promise<any> {
@@ -68,6 +68,7 @@ export class MappingUpdateFieldsServiceOld {
           applicationArea: issue.fields[JiraCustomFields.ApplicationArea] ?? '',
           country: issue.fields[JiraCustomFields.Country] ?? '',
           spt: issue.fields[JiraCustomFields.SPT] ?? '',
+          roadmapGroup: issue.fields[JiraCustomFields.roadmapGroup] ?? '',
           // Field that will return all attachments
           attachments: await this.localTransform.extractDocAttachments(
             issue.fields[JiraCustomFields.Attachments],

@@ -11,7 +11,7 @@ async function bootstrap() {
       forbidNonWhitelisted: true,
     }),
   );
-  app.enableCors();
+  app.enableCors({ origin: true, credentials: true });
   app.setGlobalPrefix('api');
   app.enableVersioning({
     type: VersioningType.URI,

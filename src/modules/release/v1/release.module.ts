@@ -7,7 +7,7 @@ import * as https from 'https';
 import { MappingReleaseFieldsService } from './mapping/mapping.release_fields.service';
 import { TrasformerJirawikiToHtml } from 'src/common/transformers/transformers.jirawiki_to_html.service';
 import { EncryptionService } from 'src/common/utils/utils.encryption.service';
-import { MappingUpdateFieldsService } from 'src/modules/documents/pddocument/v1/mapping/mapping.update_fields.service';
+import { MappingUpdateFieldsService } from './mapping/mapping.update_fields.service';
 
 @Module({
   imports: [

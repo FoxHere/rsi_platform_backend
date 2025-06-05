@@ -20,15 +20,14 @@ export class MappingReleaseFieldsService {
           release.fields[JiraCustomFields.Attachments],
         );
         return {
-          version: release.fields.fixVersions[0].name,
-          projectkey: release.fields.project.key,
+          fixVersion: release.fields.fixVersions[0].name,
+          projectKey: release.fields.project.key,
           releaseStatus: release.fields.status.name,
-          project: release.fields.project.key,
-          ApplicationArea:
+          applicationArea:
             release.fields[JiraCustomFields.ApplicationArea] ?? '',
           productLine: release.fields[JiraCustomFields.productLine] ?? '',
-          SPT: release.fields[JiraCustomFields.SPT] ?? '',
-          Country: release.fields[JiraCustomFields.Country] ?? '',
+          spt: release.fields[JiraCustomFields.SPT] ?? '',
+          country: release.fields[JiraCustomFields.Country] ?? '',
           ...(hasSpecialNotes && {
             specialNotes:
               release.fields[JiraCustomFields.specialNotes] != null
@@ -40,7 +39,7 @@ export class MappingReleaseFieldsService {
           }),
           description:
             release.fields.fixVersions[0].description ?? 'To Be Determined',
-          dueDate:
+          releaseDate:
             release.fields.fixVersions[0].releaseDate ?? 'To Be Determined',
           // : release.fields.fixVersions[0].releaseDate,
         };

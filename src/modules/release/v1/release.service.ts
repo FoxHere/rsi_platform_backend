@@ -13,13 +13,13 @@ import {
   throwError,
   switchMap,
   forkJoin,
+  from,
 } from 'rxjs';
 import { JiraCustomFields } from 'src/common/helpers/helpers.custom_fields.enum';
 import { HttpService } from '@nestjs/axios';
 import { MappingReleaseFieldsService } from './mapping/mapping.release_fields.service';
 import { ReleaseFilter } from './interfaces/jira-release-filters.interface';
-import { ReleaseDetailsDto } from './dto/release-details.dto';
-import { MappingUpdateFieldsService } from 'src/modules/documents/pddocument/v1/mapping/mapping.update_fields.service';
+import { MappingUpdateFieldsService } from './mapping/mapping.update_fields.service';
 
 @Injectable()
 export class ReleaseService {
@@ -29,18 +29,21 @@ export class ReleaseService {
     private mappingReleaseFields: MappingReleaseFieldsService,
   ) {}
 
-  findOne(fixVersion: string): Observable<any> {
+  findOne(fixVersion: string, projectKey?: string | null): Observable<any> {
+    let jql = `type = 'Release Tracker' AND fixVersion = ${fixVersion}`;
+    if (projectKey) jql += ` AND project = '${projectKey}'`;
     const body = {
-      jql: `type = 'Release Tracker' AND fixVersion = ${fixVersion}`,
+      jql: jql,
       fields: [
-        JiraCustomFields.specialNotes,
         JiraCustomFields.FixVersions,
         JiraCustomFields.project,
         JiraCustomFields.ReleaseStatus,
-        JiraCustomFields.ApplicationArea,
         JiraCustomFields.productLine,
+        JiraCustomFields.ApplicationArea,
         JiraCustomFields.SPT,
         JiraCustomFields.Country,
+        JiraCustomFields.specialNotes,
+        JiraCustomFields.roadmapGroup,
         JiraCustomFields.Attachments,
       ],
     };
@@ -50,8 +53,12 @@ export class ReleaseService {
         if (!issues || issues.length === 0) {
           throw new NotFoundException(`No Release found for ${fixVersion}`);
         }
-        return this.mappingReleaseFields.mapReleaseFields(response.data);
+
+        return response.data;
       }),
+      switchMap((data) =>
+        from(this.mappingReleaseFields.mapReleaseFields(data)),
+      ),
       catchError((err) => {
         if (err.code === 'ERR_BAD_REQUEST') {
           return throwError(
@@ -80,9 +87,11 @@ export class ReleaseService {
         () => new BadRequestException(`The value '${fixVersion}' is required`),
       );
     }
-    return this.findOne(fixVersion).pipe(
+    return this.findOne(fixVersion, projectkey).pipe(
       switchMap((releaseData: any) => {
-        const finalProjectKey = projectkey || releaseData?.projectkey || null;
+        const finalReleaseData = releaseData.issues[0];
+        const finalProjectKey =
+          projectkey || finalReleaseData?.projectkey || null;
         let jqlQuery = `fixVersion = '${fixVersion}' AND type in (Epic, Story, Documentation) AND "Legislative Title" is not EMPTY AND "Legislative Title" !~ "<None>"`;
         if (finalProjectKey) jqlQuery += ` AND project = '${finalProjectKey}'`;
 
@@ -103,6 +112,7 @@ export class ReleaseService {
             JiraCustomFields.productLine,
             JiraCustomFields.ApplicationArea,
             JiraCustomFields.SPT,
+            JiraCustomFields.roadmapGroup,
             JiraCustomFields.Country,
             JiraCustomFields.Attachments,
           ],
@@ -113,12 +123,21 @@ export class ReleaseService {
           switchMap((data) => {
             return this.mappingUpdatesFields.mapUpdateFields(data);
           }),
-
-          map((issuesData) => ({
-            total: issuesData.length,
-            specialNotes: releaseData.specialNotes ?? '',
-            issues: issuesData,
-          })),
+          map((issuesData) => {
+            const sortedIssues = sortLegislativeUpdates(issuesData);
+            return {
+              total: issuesData.length,
+              fixVersion: finalReleaseData.fixVersion ?? '',
+              projectKey: finalReleaseData.projectKey ?? '',
+              productLine: finalReleaseData.productLine ?? '',
+              applicationArea: finalReleaseData.applicationArea ?? '',
+              releaseStatus: finalReleaseData.releaseStatus ?? '',
+              country: finalReleaseData.country ?? '',
+              spt: finalReleaseData.spt ?? '',
+              specialNotes: finalReleaseData.specialNotes ?? '',
+              issues: sortedIssues,
+            };
+          }),
 
           catchError((err) => {
             if (err.code === 'ERR_BAD_REQUEST') {
@@ -166,7 +185,6 @@ export class ReleaseService {
       maxResults: 7000,
       fields: [
         JiraCustomFields.FixVersions,
-        // JiraCustomFields.specialNotes,
         JiraCustomFields.project,
         JiraCustomFields.ReleaseStatus,
         JiraCustomFields.Attachments,
@@ -182,4 +200,71 @@ export class ReleaseService {
       map((data) => this.mappingReleaseFields.mapReleaseFields(data, false)),
     );
   }
+}
+
+function sortLegislativeUpdates(updates: any[]): any[] {
+  /*
+  Grouping and Sorting Legislative Updates 
+  Initial Requirement:
+
+    Federal (based on field State;Province;Territory = none/blank or "US - Federal")
+      Sorted by Roadmap Group field; Legslative Title (Alpha Descending)
+
+    State level (based on field State;Province;Territory is not none/blank or "US - Federal" and Locality = none)
+      Sorted by Roadmap Group field, State;Province;Territory (Alpha Descending); Legslative Title (Alpha Descending)
+
+    Local level (based on field State;Province;Territory is not none/blank or "US - Federal" and Locality is not none)
+      Sorted by Roadmap Group field, Locality (Alpha Descending); Legslative Title (Alpha Descending)
+
+  Note: it is assumed (for now) all product lines/countries will be able to use the same grouping and sorting. 
+  As further requirements are gathered from each project, we may need to amend the above.
+  */
+  // First define what is the legilation
+  const isFederal = (item: any) => !item.spt || item.spt === 'US - Federal';
+  const isState = (item: any) =>
+    item.spt &&
+    item.spt !== 'US - Federal' &&
+    (!item.locality || item.locality.trim() === '');
+  const isLocal = (item: any) =>
+    item.spt &&
+    item.spt.trim() !== 'US - Federal' &&
+    item.locality &&
+    item.locality.trim() !== '';
+
+  // Split legislation to group by
+  const federal = updates.filter(isFederal);
+  const state = updates.filter(isState);
+  const local = updates.filter(isLocal);
+
+  // Determine the alpha descending comparison
+  const alphaDesc = (a: string, b: string) =>
+    b.toUpperCase().localeCompare(a.toUpperCase());
+
+  const sortFederal = (list: any[]) =>
+    [...list].sort((a, b) => {
+      return (
+        alphaDesc(a.roadmapGroup ?? '', b.roadmapGroup ?? '') ||
+        alphaDesc(a.lTitle ?? '', b.lTitle ?? '')
+      );
+    });
+
+  const sortState = (list: any[]) =>
+    [...list].sort((a, b) => {
+      return (
+        alphaDesc(a.roadmapGroup ?? '', b.roadmapGroup ?? '') ||
+        alphaDesc(a.spt ?? '', b.spt ?? '') ||
+        alphaDesc(a.lTitle ?? '', b.lTitle ?? '')
+      );
+    });
+
+  const sortLocal = (list: any[]) =>
+    [...list].sort((a, b) => {
+      return (
+        alphaDesc(a.roadmapGroup ?? '', b.roadmapGroup ?? '') ||
+        alphaDesc(a.locality ?? '', b.locality ?? '') ||
+        alphaDesc(a.lTitle ?? '', b.lTitle ?? '')
+      );
+    });
+
+  return [...sortFederal(federal), ...sortState(state), ...sortLocal(local)];
 }
