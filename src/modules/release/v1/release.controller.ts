@@ -1,7 +1,7 @@
 import { Controller, Get, Param, Query } from '@nestjs/common';
 import { ReleaseService } from './release.service';
 import { firstValueFrom, lastValueFrom, Observable } from 'rxjs';
-import { JiraRelease } from './interfaces/jira-release.interface';
+import { Release } from './interfaces/release.interface';
 import { ReleaseFilterDto } from './dto/filter-releases.dto';
 import { ReleaseDetailsDto } from './dto/release-details.dto';
 
@@ -9,7 +9,7 @@ import { ReleaseDetailsDto } from './dto/release-details.dto';
 export class ReleaseController {
   constructor(private readonly releaseService: ReleaseService) {}
   @Get()
-  async findAll(@Query() filters: ReleaseFilterDto): Promise<JiraRelease> {
+  async findAll(@Query() filters: ReleaseFilterDto): Promise<Release> {
     const releases = this.releaseService.findAllReleases(filters);
     return await lastValueFrom(releases);
   }
@@ -27,7 +27,7 @@ export class ReleaseController {
   }
 
   @Get(':fixVersion')
-  findOne(@Param('fixVersion') fixVersion: string): Promise<any> {
+  findOne(@Param('fixVersion') fixVersion: string): Promise<Release> {
     const release = this.releaseService.findOne(fixVersion);
     return firstValueFrom(release);
   }

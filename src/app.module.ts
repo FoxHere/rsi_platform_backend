@@ -9,6 +9,7 @@ import { FilterFieldsModule } from './modules/filter_fields/v1/filter_fields.mod
 import { ProductLineModule } from './modules/product_line/v1/product_line.module';
 import { ApplicationAreaModule } from './modules/application_area/v1/application_area.module';
 import { StatusFilterModule } from './modules/status_filter/v1/status_filter.module';
+import { CommonModule } from './common/common.module';
 
 @Module({
   imports: [
@@ -34,7 +35,6 @@ import { StatusFilterModule } from './modules/status_filter/v1/status_filter.mod
     ProductLineModule,
     ApplicationAreaModule,
     StatusFilterModule,
-
     // JiraDatabaseModule,
   ],
   controllers: [],

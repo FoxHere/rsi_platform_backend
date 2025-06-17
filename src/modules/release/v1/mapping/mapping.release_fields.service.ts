@@ -1,24 +1,15 @@
 import { Injectable } from '@nestjs/common';
-import {
-  JiraRelease,
-  JiraReleaseUpdate,
-} from '../interfaces/jira-release.interface';
+import { Release, ReleaseIssues } from '../interfaces/release.interface';
 import { JiraCustomFields } from 'src/common/helpers/helpers.custom_fields.enum';
-import { TrasformerJirawikiToHtml } from 'src/common/transformers/transformers.jirawiki_to_html.service';
+import { DisplayRules } from 'src/common/helpers/helper.display_rules';
 
 @Injectable()
 export class MappingReleaseFieldsService {
-  constructor(private localTransform: TrasformerJirawikiToHtml) {}
+  constructor(private displayRules: DisplayRules) {}
 
-  async mapReleaseFields(
-    data: any,
-    hasSpecialNotes: boolean = true,
-  ): Promise<any> {
-    const mappedReleasesPromises: JiraReleaseUpdate[] = data.issues.map(
+  async mapReleaseFields(data: any): Promise<Release> {
+    const mappedReleasesPromises: ReleaseIssues[] = data.issues.map(
       async (release: any) => {
-        const ImagesAttachment = this.extractImageAttachments(
-          release.fields[JiraCustomFields.Attachments],
-        );
         return {
           fixVersion: release.fields.fixVersions[0].name,
           projectKey: release.fields.project.key,
@@ -28,32 +19,25 @@ export class MappingReleaseFieldsService {
           productLine: release.fields[JiraCustomFields.productLine] ?? '',
           spt: release.fields[JiraCustomFields.SPT] ?? '',
           country: release.fields[JiraCustomFields.Country] ?? '',
-          ...(hasSpecialNotes && {
-            specialNotes:
-              release.fields[JiraCustomFields.specialNotes] != null
-                ? await this.localTransform.conversor(
-                    release.fields[JiraCustomFields.specialNotes],
-                    ImagesAttachment,
-                  )
-                : '',
-          }),
+          specialNotes: await this.displayRules.displayWhenApplicable(
+            release.fields[JiraCustomFields.specialNotes],
+            release.fields[JiraCustomFields.specialNotesStatus]?.value ?? '',
+            release.fields[JiraCustomFields.Attachments],
+            true,
+          ),
           description:
             release.fields.fixVersions[0].description ?? 'To Be Determined',
           releaseDate:
             release.fields.fixVersions[0].releaseDate ?? 'To Be Determined',
-          // : release.fields.fixVersions[0].releaseDate,
         };
       },
     );
-    const mappedReleases = await Promise.all(mappedReleasesPromises);
+    const mappedReleases: ReleaseIssues[] = await Promise.all(
+      mappedReleasesPromises,
+    );
     return {
       total: data.total,
       issues: mappedReleases,
     };
-  }
-  extractImageAttachments(attachments: any[]): string[] {
-    return attachments
-      .filter((attachment) => attachment.mimeType.startsWith('image'))
-      .map((attachment) => attachment);
   }
 }

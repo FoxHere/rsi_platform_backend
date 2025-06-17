@@ -16,12 +16,23 @@ export enum JiraCustomFields {
   project = 'project',
   Attachments = 'attachment',
   // -------------------------------------------- Custom Fields
+  // ------------Release Level
   specialNotes = 'customfield_15112',
+  // ------------Update Level
   ApplicationArea = 'customfield_14600',
   productLine = 'customfield_14601',
   SPT = 'customfield_14611',
+  Locality = 'customfield_13402',
   roadmapGroup = 'customfield_13612',
   Country = 'customfield_14602',
   ConfigurationSteps = 'customfield_15200',
   UserGuide = 'customfield_15201',
+  // -------------------------------------------- Custom Fields Status
+  // ------------Release Level
+  specialNotesStatus = 'customfield_15304',
+  installInstStatus = 'customfield_15305',
+  // ------------Update Level
+  roadmapStatus = 'customfield_13500',
+  configStepsStatus = 'customfield_15301',
+  userGuideStatus = 'customfield_15302',
 }

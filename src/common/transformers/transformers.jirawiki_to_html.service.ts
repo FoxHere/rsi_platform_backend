@@ -9,6 +9,8 @@ import { ExceptionsHandler } from '@nestjs/core/exceptions/exceptions-handler';
 import { firstValueFrom } from 'rxjs';
 import sharp from 'sharp';
 import { EncryptionService } from 'src/common/utils/utils.encryption.service';
+import { LinksStyle } from './link_style.interface';
+import { DocumentAttachments } from './doc_attachments.interface';
 
 @Injectable()
 export class TrasformerJirawikiToHtml {
@@ -17,11 +19,11 @@ export class TrasformerJirawikiToHtml {
     private readonly encryptService: EncryptionService,
   ) {}
 
-  extrancLinksToJson(text: any) {
+  extrancLinksToJson(text: string): LinksStyle[] {
     const linkRegex = /\[(.*?)\|(.*?)$\]|\[(.*?)\]+/g;
     let match: RegExpExecArray;
     let linkCount = 0;
-    const links = [];
+    const links: LinksStyle[] = [];
 
     while ((match = linkRegex.exec(text)) !== null) {
       linkCount++;
@@ -30,17 +32,17 @@ export class TrasformerJirawikiToHtml {
           ? match[3].trim().split('|')[0].charAt(0).toUpperCase() +
             match[3].trim().split('|')[0].slice(1).toString()
           : `Link ${linkCount}`;
-      const url = match[3].trim().split('|')[1]
+      const source = match[3].trim().split('|')[1]
         ? `<a href='${match[3].trim().split('|')[1]}'>${match[3].trim().split('|')[1]}</a>`
         : `<a href='${match[3].trim().split('|')[0]}'>${match[3].trim().split('|')[0]}</a>`;
-      links.push({ name, source: url });
+      links.push({ name, source });
     }
 
     return links;
   }
   async removeWiki(wikiText: string): Promise<string> {
     let text: string = wikiText;
-    if (text === null || text === '' || text === '_None_') {
+    if (text === null || text === '' || text === '<None>') {
       text = '';
     } else {
       text = text.replace(
@@ -69,14 +71,14 @@ export class TrasformerJirawikiToHtml {
       // Removing unecessary line break
       text = text.replace(/(\r\n)/g, '');
     }
-    return text;
+    return text.trim();
   }
 
   async conversor(wikiText: string, attachments: any[] = []): Promise<string> {
     try {
       let html = wikiText;
 
-      if (html === null || html === '' || html === '_None_') {
+      if (html === null || html === '' || html === '<None>') {
         html = '';
       } else {
         //Adjustments
@@ -456,17 +458,14 @@ export class TrasformerJirawikiToHtml {
 
   async extractDocAttachments(
     attachments: any[],
-  ): Promise<
-    { fileName: string; fileId: string; file_size: string; file_type: string }[]
-  > {
+  ): Promise<DocumentAttachments[]> {
     // Create a list of attachments
-    const documents = [];
-    // Mapp all attachments and push it to document list
+    const documents: DocumentAttachments[] = [];
+    // Map all attachments and push it to document list
     if (attachments.length != 0) {
       attachments.map((attachment) => {
         documents.push({
           fileName: attachment.filename,
-          // Implement right here to encryption function to encrypt the Id before send it
           fileId: this.encryptService.encrypt(attachment.id),
           fileSize: attachment.size.toString(),
           //file_type: attachment.mimeType,

@@ -18,8 +18,9 @@ import {
 import { JiraCustomFields } from 'src/common/helpers/helpers.custom_fields.enum';
 import { HttpService } from '@nestjs/axios';
 import { MappingReleaseFieldsService } from './mapping/mapping.release_fields.service';
-import { ReleaseFilter } from './interfaces/jira-release-filters.interface';
+import { ReleaseFilter } from './interfaces/release_filters.interface';
 import { MappingUpdateFieldsService } from './mapping/mapping.update_fields.service';
+import { Release } from './interfaces/release.interface';
 
 @Injectable()
 export class ReleaseService {
@@ -42,6 +43,7 @@ export class ReleaseService {
         JiraCustomFields.ApplicationArea,
         JiraCustomFields.SPT,
         JiraCustomFields.Country,
+        JiraCustomFields.specialNotesStatus,
         JiraCustomFields.specialNotes,
         JiraCustomFields.roadmapGroup,
         JiraCustomFields.Attachments,
@@ -112,8 +114,11 @@ export class ReleaseService {
             JiraCustomFields.productLine,
             JiraCustomFields.ApplicationArea,
             JiraCustomFields.SPT,
+            JiraCustomFields.Locality,
             JiraCustomFields.roadmapGroup,
             JiraCustomFields.Country,
+            JiraCustomFields.configStepsStatus,
+            JiraCustomFields.userGuideStatus,
             JiraCustomFields.Attachments,
           ],
         };
@@ -125,6 +130,7 @@ export class ReleaseService {
           }),
           map((issuesData) => {
             const sortedIssues = sortLegislativeUpdates(issuesData);
+            // const sortedIssues = groupAndSortLegislativeUpdates2(issuesData);
             return {
               total: issuesData.length,
               fixVersion: finalReleaseData.fixVersion ?? '',
@@ -159,9 +165,10 @@ export class ReleaseService {
     );
   }
 
-  findAllReleases(filters: ReleaseFilter): Observable<any> {
+  findAllReleases(filters: ReleaseFilter): Observable<Promise<Release>> {
     // Create inicial jql to use the fixed query to retrieve information
-    let jqlQuery = "type = 'Release Tracker' AND ReleaseDate is not EMPTY";
+    let jqlQuery: string =
+      "type = 'Release Tracker' AND ReleaseDate is not EMPTY";
     // Apply filters if exists ----------------------------------------------------
     filters.productLine
       ? (jqlQuery += ` AND "Product Line" = "${filters.productLine}"`)
@@ -171,7 +178,25 @@ export class ReleaseService {
       ? (jqlQuery += ` AND "Application Area" = ${filters.applicationArea}`)
       : jqlQuery;
     //-----------------------------------------------------------------------------
-    filters.status ? (jqlQuery += ` AND status = ${filters.status}`) : jqlQuery;
+    if (filters.status) {
+      const statusFilter = (status: string): string => {
+        switch (status) {
+          case 'planned':
+            return 'Planned';
+          case 'preDelivery':
+            return 'Pre-Delivery';
+          case 'inProgress':
+            return 'In Progress';
+          case 'delivered':
+            return 'Delivered';
+        }
+      };
+      const parsedStatus = statusFilter(filters.status);
+      //-----------------------------------------------------------------------------
+      filters.status
+        ? (jqlQuery += ` AND status = '${parsedStatus}'`)
+        : jqlQuery;
+    }
     //-----------------------------------------------------------------------------
     filters.dateFrom
       ? (jqlQuery += ` AND ReleaseDate >= ${filters.dateFrom}`)
@@ -194,10 +219,9 @@ export class ReleaseService {
         JiraCustomFields.Country,
       ],
     };
-    //const releases: Observable<Promise<JiraRelease>>
     return this.httpService.post('/search', body).pipe(
       map((response) => response.data),
-      map((data) => this.mappingReleaseFields.mapReleaseFields(data, false)),
+      map((data) => this.mappingReleaseFields.mapReleaseFields(data)),
     );
   }
 }
@@ -220,16 +244,27 @@ function sortLegislativeUpdates(updates: any[]): any[] {
   As further requirements are gathered from each project, we may need to amend the above.
   */
   // First define what is the legilation
-  const isFederal = (item: any) => !item.spt || item.spt === 'US - Federal';
-  const isState = (item: any) =>
-    item.spt &&
-    item.spt !== 'US - Federal' &&
-    (!item.locality || item.locality.trim() === '');
-  const isLocal = (item: any) =>
-    item.spt &&
-    item.spt.trim() !== 'US - Federal' &&
-    item.locality &&
-    item.locality.trim() !== '';
+  const isFederal = (item: any) =>
+    !item.spt || item.spt.trim() === '' || item.spt.trim() === 'US - Federal';
+  const isState = (item: any) => {
+    const spt = item.spt?.trim() ?? '';
+    const locality = item.locality?.trim() ?? '';
+    return (
+      spt !== '' &&
+      spt !== 'US - Federal' &&
+      (locality === '' || locality.toLowerCase() === 'none')
+    );
+  };
+  const isLocal = (item: any) => {
+    const spt = item.spt?.trim() ?? '';
+    const locality = item.locality?.trim() ?? '';
+    return (
+      spt !== '' &&
+      spt !== 'US - Federal' &&
+      locality !== '' &&
+      locality.toLowerCase() !== 'none'
+    );
+  };
 
   // Split legislation to group by
   const federal = updates.filter(isFederal);
@@ -237,34 +272,79 @@ function sortLegislativeUpdates(updates: any[]): any[] {
   const local = updates.filter(isLocal);
 
   // Determine the alpha descending comparison
-  const alphaDesc = (a: string, b: string) =>
-    b.toUpperCase().localeCompare(a.toUpperCase());
+  // const alphaDesc = (a: string, b: string) =>
+  //   b.toUpperCase().localeCompare(a.toUpperCase());
 
+  // sort by legislation
   const sortFederal = (list: any[]) =>
     [...list].sort((a, b) => {
-      return (
-        alphaDesc(a.roadmapGroup ?? '', b.roadmapGroup ?? '') ||
-        alphaDesc(a.lTitle ?? '', b.lTitle ?? '')
-      );
+      const roadmapCompare =
+        a.roadmapGroup?.localeCompare(b.roadmapGroup ?? '') ?? 0;
+      if (roadmapCompare !== 0) return roadmapCompare;
+      return a.lTitle?.localeCompare(b.lTitle ?? '') ?? 0;
     });
 
   const sortState = (list: any[]) =>
     [...list].sort((a, b) => {
-      return (
-        alphaDesc(a.roadmapGroup ?? '', b.roadmapGroup ?? '') ||
-        alphaDesc(a.spt ?? '', b.spt ?? '') ||
-        alphaDesc(a.lTitle ?? '', b.lTitle ?? '')
-      );
+      const roadmapCompare =
+        a.roadmapGroup?.localeCompare(b.roadmapGroup ?? '') ?? 0;
+      if (roadmapCompare !== 0) return roadmapCompare;
+      const sptCompare = a.spt?.localeCompare(b.spt ?? '') ?? 0;
+      if (sptCompare !== 0) return sptCompare;
+      return a.lTitle?.localeCompare(b.lTitle ?? '') ?? 0;
     });
 
   const sortLocal = (list: any[]) =>
     [...list].sort((a, b) => {
-      return (
-        alphaDesc(a.roadmapGroup ?? '', b.roadmapGroup ?? '') ||
-        alphaDesc(a.locality ?? '', b.locality ?? '') ||
-        alphaDesc(a.lTitle ?? '', b.lTitle ?? '')
-      );
+      const roadmapCompare =
+        a.roadmapGroup?.localeCompare(b.roadmapGroup ?? '') ?? 0;
+      if (roadmapCompare !== 0) return roadmapCompare;
+      const localCompare = a.locality?.localeCompare(b.locality ?? '') ?? 0;
+      if (localCompare !== 0) return localCompare;
+      return a.lTitle?.localeCompare(b.lTitle ?? '') ?? 0;
     });
 
   return [...sortFederal(federal), ...sortState(state), ...sortLocal(local)];
+}
+
+function groupAndSortLegislativeUpdates2(issues: any[]): any[] {
+  // Determine the legislation level
+  const getLevel = (item: any): number => {
+    if (!item.spt || item.spt === 'US - Federal') return 0; // Federal
+    if (
+      item.spt &&
+      (!item.locality ||
+        item.locality.trim() === '' ||
+        item.locality.trim() === 'None')
+    )
+      return 1; // State
+    return 2; // Local
+  };
+
+  const getSortKey = (item: any): string[] => {
+    const level = getLevel(item).toString(); // 0, 1, 2
+    const roadmap = item.roadmapGroup ?? '';
+    const spt = item.spt ?? '';
+    const locality = item.locality ?? '';
+    const lTitle = item.lTitle ?? '';
+
+    return [
+      level,
+      roadmap.toUpperCase(),
+      locality.toUpperCase(),
+      spt.toUpperCase(),
+      lTitle.toUpperCase(),
+    ];
+  };
+
+  return [...issues].sort((a, b) => {
+    const keyA = getSortKey(a);
+    const keyB = getSortKey(b);
+
+    for (let i = 0; i < keyA.length; i++) {
+      if (keyA[i] < keyB[i]) return -1;
+      if (keyA[i] > keyB[i]) return 1;
+    }
+    return 0;
+  });
 }

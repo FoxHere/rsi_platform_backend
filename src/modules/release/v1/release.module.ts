@@ -8,6 +8,8 @@ import { MappingReleaseFieldsService } from './mapping/mapping.release_fields.se
 import { TrasformerJirawikiToHtml } from 'src/common/transformers/transformers.jirawiki_to_html.service';
 import { EncryptionService } from 'src/common/utils/utils.encryption.service';
 import { MappingUpdateFieldsService } from './mapping/mapping.update_fields.service';
+import { DisplayRules } from 'src/common/helpers/helper.display_rules';
+import { CommonModule } from 'src/common/common.module';
 
 @Module({
   imports: [
@@ -25,6 +27,7 @@ import { MappingUpdateFieldsService } from './mapping/mapping.update_fields.serv
         }),
       }),
     }),
+    CommonModule,
   ],
   controllers: [ReleaseController],
   providers: [
@@ -32,8 +35,6 @@ import { MappingUpdateFieldsService } from './mapping/mapping.update_fields.serv
     ConfigService,
     MappingReleaseFieldsService,
     MappingUpdateFieldsService,
-    EncryptionService,
-    TrasformerJirawikiToHtml,
   ],
 })
 export class ReleasesModule {}
