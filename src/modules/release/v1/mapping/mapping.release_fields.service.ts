@@ -25,6 +25,7 @@ export class MappingReleaseFieldsService {
             release.fields[JiraCustomFields.Attachments],
             true,
           ),
+          installInstructions: '',
           description:
             release.fields.fixVersions[0].description ?? 'To Be Determined',
           releaseDate:

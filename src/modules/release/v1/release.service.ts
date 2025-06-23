@@ -1,6 +1,7 @@
 import {
   BadRequestException,
   HttpException,
+  HttpStatus,
   Injectable,
   InternalServerErrorException,
   NotFoundException,
@@ -14,6 +15,7 @@ import {
   switchMap,
   forkJoin,
   from,
+  lastValueFrom,
 } from 'rxjs';
 import { JiraCustomFields } from 'src/common/helpers/helpers.custom_fields.enum';
 import { HttpService } from '@nestjs/axios';
@@ -21,6 +23,8 @@ import { MappingReleaseFieldsService } from './mapping/mapping.release_fields.se
 import { ReleaseFilter } from './interfaces/release_filters.interface';
 import { MappingUpdateFieldsService } from './mapping/mapping.update_fields.service';
 import { Release } from './interfaces/release.interface';
+import { EncryptionService } from 'src/common/utils/utils.encryption.service';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class ReleaseService {
@@ -28,6 +32,8 @@ export class ReleaseService {
     private readonly httpService: HttpService,
     private mappingUpdatesFields: MappingUpdateFieldsService,
     private mappingReleaseFields: MappingReleaseFieldsService,
+    private encryptionService: EncryptionService,
+    private readonly configServices: ConfigService,
   ) {}
 
   findOne(fixVersion: string, projectKey?: string | null): Observable<any> {
@@ -141,6 +147,7 @@ export class ReleaseService {
               country: finalReleaseData.country ?? '',
               spt: finalReleaseData.spt ?? '',
               specialNotes: finalReleaseData.specialNotes ?? '',
+              installInstructions: '',
               issues: sortedIssues,
             };
           }),
@@ -223,6 +230,35 @@ export class ReleaseService {
       map((response) => response.data),
       map((data) => this.mappingReleaseFields.mapReleaseFields(data)),
     );
+  }
+
+  async getDocumentStream(encryptedValue: string): Promise<any> {
+    // Here we have to use a decrypt function to decrypt document id
+    const documentId = this.encryptionService.decrypt(encryptedValue);
+    // Preparing document Jira URL
+    const documentUrl = `${this.configServices.get('BASE_URL')}/secure/attachment/${documentId}/content`;
+    // Create a custom header
+    const headers = {
+      Accept: 'application/octet-stream',
+    };
+
+    try {
+      // Call Jira api to download document
+      const response = await lastValueFrom(
+        this.httpService.get(documentUrl, {
+          headers,
+          responseType: 'stream',
+        }),
+      );
+      // Return document data by stream
+      return response.data;
+    } catch (error) {
+      console.error('Failed to get document stream', error);
+      throw new HttpException(
+        'Failed to get document stream: ' + error.message,
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
   }
 }
 

@@ -9,7 +9,7 @@ import {
 import { PddocumentService } from './pddocument.service';
 import { lastValueFrom } from 'rxjs';
 import { Response } from 'express';
-import { FindAttachmentDto } from './dto/find_attachment.dto';
+import { FindAttachmentDto } from '../../../release/v1/dto/find_attachment.dto';
 
 @Controller({ path: 'pddocument', version: '1' })
 export class PddocumentController {

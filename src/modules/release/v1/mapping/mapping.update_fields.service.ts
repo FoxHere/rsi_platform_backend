@@ -3,20 +3,26 @@ import { DisplayRules } from 'src/common/helpers/helper.display_rules';
 import { JiraCustomFields } from 'src/common/helpers/helpers.custom_fields.enum';
 import { TrasformerJirawikiToHtml } from 'src/common/transformers/transformers.jirawiki_to_html.service';
 import { ReleaseDetailsDto } from '../dto/release-details.dto';
-import { ReleaseDetails } from '../interfaces/release_details.interface';
+// import { ReleaseDetails } from '../interfaces/release_details.interface';
 
 @Injectable()
 export class MappingUpdateFieldsService {
-  constructor(private displayRules: DisplayRules) {}
+  constructor(
+    private displayRules: DisplayRules,
+    private localTransform: TrasformerJirawikiToHtml,
+  ) {}
 
-  async mapUpdateFields(data: any): Promise<ReleaseDetails[]> {
-    const mappedFieldsPromises: ReleaseDetails[] = data.issues
+  async mapUpdateFields(data: any): Promise<any> {
+    const mappedFieldsPromises = data.issues
       .filter(
         (issue: any) =>
           issue.fields[JiraCustomFields.lSummary] != null &&
           issue.fields[JiraCustomFields.lSummary] != '',
       )
       .map(async (issue: any) => {
+        const ImagesAttachment = this.filterImageAttachments(
+          issue.fields[JiraCustomFields.Attachments],
+        );
         return {
           id: String(issue.id),
           key: issue[JiraCustomFields.Key],
@@ -51,6 +57,7 @@ export class MappingUpdateFieldsService {
             issue.fields[JiraCustomFields.Attachments],
             true,
           ),
+          objectAffected: '',
           configSteps: await this.displayRules.displayWhenApplicable(
             issue.fields[JiraCustomFields.ConfigurationSteps],
             issue.fields[JiraCustomFields.configStepsStatus]?.value ?? '',
@@ -70,15 +77,39 @@ export class MappingUpdateFieldsService {
           spt: issue.fields[JiraCustomFields.SPT] ?? '',
           locality: issue.fields[JiraCustomFields.Locality] ?? '',
           roadmapGroup: issue.fields[JiraCustomFields.roadmapGroup] ?? '',
-          // Field that will return all attachments
+          //Field that will return all attachments
           attachments: await this.displayRules.displayAttachments(
             issue.fields[JiraCustomFields.Attachments],
           ),
         };
       });
 
-    const mappedFields: ReleaseDetails[] =
-      await Promise.all(mappedFieldsPromises);
+    const mappedFields = await Promise.all(mappedFieldsPromises);
     return mappedFields;
+  }
+  private filterImageAttachments(attachments: any[]): any[] {
+    return attachments
+      .filter((attachment) => attachment.mimeType.startsWith('image'))
+      .map((image) => image);
+  }
+
+  extractImageAttachment2(
+    imageText: string,
+    hasSize: boolean,
+  ): { name: string; width: number; height: number }[] {
+    const regex = hasSize
+      ? /(.*?\.(png|jpg|jpeg|gif|webp))\|width=(\d+),height=(\d+)/gi
+      : /(.*?\.(png|jpg|jpeg|gif|webp))/gi;
+    let match = [];
+    const images = [];
+
+    while ((match = regex.exec(imageText)) !== null) {
+      images.push({
+        name: match[1],
+        width: hasSize ? parseInt(match[3], 10) : 0,
+        height: hasSize ? parseInt(match[4], 10) : 0,
+      });
+    }
+    return images;
   }
 }

@@ -63,11 +63,11 @@ export class DisplayRules {
     isWikiRemoval = false,
   ): Promise<string> {
     if (this.isValidString(jiraField)) {
-      const ImagesAttachment = this.extractImageAttachments(attachments);
       if (isWikiRemoval) {
         return await this.localTransform.removeWiki(jiraField);
       }
       if (needConversor) {
+        const ImagesAttachment = this.extractImageAttachments(attachments);
         return await this.localTransform.conversor(jiraField, ImagesAttachment);
       }
     }
@@ -83,11 +83,11 @@ export class DisplayRules {
   ): Promise<string> {
     if (this.isValidString(jiraField)) {
       if (this.isApplicableField(isApplcableField)) {
-        const ImagesAttachment = this.extractImageAttachments(attachments);
         if (isWikiRemoval) {
           return await this.localTransform.removeWiki(jiraField);
         }
         if (needConversor) {
+          const ImagesAttachment = this.extractImageAttachments(attachments);
           return await this.localTransform.conversor(
             jiraField,
             ImagesAttachment,
