@@ -476,6 +476,40 @@ export class TrasformerJirawikiToHtml {
     return documents;
   }
 
+  async extractLegisativeAttachments(
+    jiraField: string,
+    attachments: any[],
+  ): Promise<DocumentAttachments[]> {
+    const documents: DocumentAttachments[] = [];
+
+    /*
+      Example: 
+        [^SUSP_151071_Extract.xml] = File type
+        !BarnSnow1.jpg|thumbnail! = This image has no params
+        !BarnSnow1.jpg|width=219,height=164,thumbnail! = This image has params
+        [^Pre-delivery Document.pdf] = File type
+    */
+    const fileLinksMatches = [...jiraField.matchAll(/\[\^(.*?)\]/g)];
+    const fileLinks = fileLinksMatches.map((m) => m[1]);
+
+    const imageLinksMatches = [...jiraField.matchAll(/!(.*?)(?:\|.*)?!/g)];
+    const imageLinks = imageLinksMatches.map((m) => m[1]);
+
+    const allReferencesFiles = [...fileLinks, ...imageLinks];
+
+    attachments
+      .filter((att) => allReferencesFiles.includes(att.filename))
+      .map((att) => {
+        documents.push({
+          fileName: att.filename,
+          fileId: this.encryptService.encrypt(att.id),
+          fileSize: att.size.toString(),
+        });
+      });
+
+    return documents;
+  }
+
   async resizeAndConvertToBase64(
     url: string,
     width: number,

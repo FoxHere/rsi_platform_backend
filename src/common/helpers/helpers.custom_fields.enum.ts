@@ -6,6 +6,7 @@ export enum JiraCustomFields {
   lSourceLinks = 'customfield_14702',
   lBusinessImpact = 'customfield_14700',
   lSystemImpact = 'customfield_14703',
+  lAttachments = 'customfield_15307',
   // -------------------------------------------- Common Fields
   Key = 'key',
   Summary = 'summary',
@@ -27,6 +28,7 @@ export enum JiraCustomFields {
   Country = 'customfield_14602',
   ConfigurationSteps = 'customfield_15200',
   UserGuide = 'customfield_15201',
+  objectAffected = 'customfield_11327',
   // -------------------------------------------- Custom Fields Status
   // ------------Release Level
   specialNotesStatus = 'customfield_15304',

@@ -41,7 +41,9 @@ export class DisplayRules {
       typeof input === 'string' &&
       input.trim() !== '' &&
       input.trim().toLowerCase() !== '<none>' &&
-      input.trim().toLowerCase() !== '_none_'
+      input.trim().toLowerCase() !== '_none_' &&
+      input.trim().toLowerCase() !== '0' &&
+      input.trim().toLowerCase() !== null
     );
   }
 
@@ -54,6 +56,10 @@ export class DisplayRules {
       this.isValidString(applicableField) &&
       applicableField.trim().toLowerCase() === 'applicable'
     );
+  }
+
+  keyDisplay(productLine: string, key: string): string {
+    return `Update ID: ${productLine}${key.split('-')[1].padStart(7, '0')}`;
   }
 
   async alwaysDisplay(
@@ -108,6 +114,16 @@ export class DisplayRules {
   async displayAttachments(attachments: any[]): Promise<DocumentAttachments[]> {
     if (this.isValidArray(attachments)) {
       return await this.localTransform.extractDocAttachments(attachments);
+    }
+    return [];
+  }
+
+  async displayLegislativeAttachments(attField: string, attachments: any[]) {
+    if (this.isValidString(attField)) {
+      return await this.localTransform.extractLegisativeAttachments(
+        attField,
+        attachments,
+      );
     }
     return [];
   }

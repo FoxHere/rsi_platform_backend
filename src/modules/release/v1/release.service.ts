@@ -115,6 +115,7 @@ export class ReleaseService {
             JiraCustomFields.lSourceLinks,
             JiraCustomFields.lBusinessImpact,
             JiraCustomFields.lSystemImpact,
+            JiraCustomFields.lAttachments,
             JiraCustomFields.ConfigurationSteps,
             JiraCustomFields.UserGuide,
             JiraCustomFields.productLine,
@@ -122,6 +123,7 @@ export class ReleaseService {
             JiraCustomFields.SPT,
             JiraCustomFields.Locality,
             JiraCustomFields.roadmapGroup,
+            JiraCustomFields.objectAffected,
             JiraCustomFields.Country,
             JiraCustomFields.configStepsStatus,
             JiraCustomFields.userGuideStatus,
@@ -174,8 +176,8 @@ export class ReleaseService {
 
   findAllReleases(filters: ReleaseFilter): Observable<Promise<Release>> {
     // Create inicial jql to use the fixed query to retrieve information
-    let jqlQuery: string =
-      "type = 'Release Tracker' AND ReleaseDate is not EMPTY";
+    let jqlQuery: string = `type = "Release Tracker" AND fixVersion not in archivedVersions() AND fixVersion is not EMPTY`;
+    // let jqlQuery: string = `type = 'Release Tracker' AND fixVersion is not EMPTY AND 'Release Status' !~ 'ARCHIVED'`;
     // Apply filters if exists ----------------------------------------------------
     filters.productLine
       ? (jqlQuery += ` AND "Product Line" = "${filters.productLine}"`)

@@ -25,7 +25,10 @@ export class MappingUpdateFieldsService {
         );
         return {
           id: String(issue.id),
-          key: issue[JiraCustomFields.Key],
+          key: this.displayRules.keyDisplay(
+            issue.fields[JiraCustomFields.productLine],
+            issue[JiraCustomFields.Key],
+          ),
           summary: issue.fields[JiraCustomFields.Summary],
           // ------------------------------------------------
           lTitle: await this.displayRules.alwaysDisplay(
@@ -57,7 +60,15 @@ export class MappingUpdateFieldsService {
             issue.fields[JiraCustomFields.Attachments],
             true,
           ),
-          objectAffected: '',
+          lAttachments: await this.displayRules.displayLegislativeAttachments(
+            issue.fields[JiraCustomFields.lAttachments],
+            issue.fields[JiraCustomFields.Attachments],
+          ),
+          objectAffected: await this.displayRules.alwaysDisplay(
+            issue.fields[JiraCustomFields.objectAffected],
+            issue.fields[JiraCustomFields.Attachments],
+            true,
+          ),
           configSteps: await this.displayRules.displayWhenApplicable(
             issue.fields[JiraCustomFields.ConfigurationSteps],
             issue.fields[JiraCustomFields.configStepsStatus]?.value ?? '',
@@ -78,9 +89,9 @@ export class MappingUpdateFieldsService {
           locality: issue.fields[JiraCustomFields.Locality] ?? '',
           roadmapGroup: issue.fields[JiraCustomFields.roadmapGroup] ?? '',
           //Field that will return all attachments
-          attachments: await this.displayRules.displayAttachments(
-            issue.fields[JiraCustomFields.Attachments],
-          ),
+          // attachments: await this.displayRules.displayAttachments(
+          //   issue.fields[JiraCustomFields.Attachments],
+          // ),
         };
       });
 
