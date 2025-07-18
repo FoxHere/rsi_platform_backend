@@ -83,19 +83,29 @@ export class DisplayRules {
   async displayWhenApplicable(
     jiraField: string,
     isApplcableField: string,
-    attachments = [],
-    needConversor = false,
-    isWikiRemoval = false,
+    attachments: any[] = [],
+    needConversor: boolean = false,
+    isWikiRemoval: boolean = false,
+    isTemplate: boolean = false,
+    templateFields?: TemplateReplacement,
   ): Promise<string> {
     if (this.isValidString(jiraField)) {
+      var jiraRawField = jiraField;
+
       if (this.isApplicableField(isApplcableField)) {
+        if (isTemplate) {
+          jiraRawField = await this.localTransform.templateReplacement(
+            jiraField,
+            templateFields,
+          );
+        }
         if (isWikiRemoval) {
-          return await this.localTransform.removeWiki(jiraField);
+          return await this.localTransform.removeWiki(jiraRawField);
         }
         if (needConversor) {
           const ImagesAttachment = this.extractImageAttachments(attachments);
           return await this.localTransform.conversor(
-            jiraField,
+            jiraRawField,
             ImagesAttachment,
           );
         }

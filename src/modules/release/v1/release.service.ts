@@ -51,6 +51,8 @@ export class ReleaseService {
         JiraCustomFields.Country,
         JiraCustomFields.specialNotesStatus,
         JiraCustomFields.specialNotes,
+        JiraCustomFields.installInstStatus,
+        JiraCustomFields.installInstruct,
         JiraCustomFields.roadmapGroup,
         JiraCustomFields.Attachments,
       ],
@@ -149,7 +151,7 @@ export class ReleaseService {
               country: finalReleaseData.country ?? '',
               spt: finalReleaseData.spt ?? '',
               specialNotes: finalReleaseData.specialNotes ?? '',
-              installInstructions: '',
+              installInstructions: finalReleaseData.installInstructions ?? '',
               issues: sortedIssues,
             };
           }),

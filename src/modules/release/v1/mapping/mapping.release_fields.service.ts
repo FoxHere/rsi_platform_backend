@@ -25,7 +25,22 @@ export class MappingReleaseFieldsService {
             release.fields[JiraCustomFields.Attachments],
             true,
           ),
-          installInstructions: '',
+          installInstructions: await this.displayRules.displayWhenApplicable(
+            release.fields[JiraCustomFields.installInstruct],
+            release.fields[JiraCustomFields.installInstStatus]?.value ?? '',
+            release.fields[JiraCustomFields.Attachments],
+            true,
+            false,
+            true,
+            {
+              fixVersion: release.fields.fixVersions[0].name,
+              applicationArea:
+                release.fields[JiraCustomFields.ApplicationArea] ?? '',
+              productLine: release.fields[JiraCustomFields.productLine] ?? '',
+              countryCode: release.fields[JiraCustomFields.Country] ?? '',
+              spt: release.fields[JiraCustomFields.SPT] ?? '',
+            },
+          ),
           description:
             release.fields.fixVersions[0].description ?? 'To Be Determined',
           releaseDate:

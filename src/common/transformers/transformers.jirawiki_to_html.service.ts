@@ -40,6 +40,21 @@ export class TrasformerJirawikiToHtml {
 
     return links;
   }
+
+  async templateReplacement(
+    wikiText: string,
+    templateFields: TemplateReplacement,
+  ) {
+    let result: string = wikiText;
+    // text = text.replaceAll(/(\$fixVersion)/g, `${templateFields.fixVersion}`);
+    for (const [key, value] of Object.entries(templateFields)) {
+      const placeHolder = new RegExp(`\\$${key}`, 'g');
+      result = result.replaceAll(placeHolder, `${value}`);
+    }
+
+    return result;
+  }
+
   async removeWiki(wikiText: string): Promise<string> {
     let text: string = wikiText;
     if (text === null || text === '' || text === '<None>') {

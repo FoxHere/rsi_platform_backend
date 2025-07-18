@@ -7,6 +7,7 @@ export interface ReleaseIssues {
   spt: string;
   country: string;
   specialNotes: string;
+  installInstructions: string;
   description: string;
   releaseDate: string;
 }

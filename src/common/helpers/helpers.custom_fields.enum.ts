@@ -19,6 +19,7 @@ export enum JiraCustomFields {
   // -------------------------------------------- Custom Fields
   // ------------Release Level
   specialNotes = 'customfield_15112',
+  installInstruct = 'customfield_15308',
   // ------------Update Level
   ApplicationArea = 'customfield_14600',
   productLine = 'customfield_14601',
