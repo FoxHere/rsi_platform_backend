@@ -431,14 +431,16 @@ export class TrasformerJirawikiToHtml {
         html = `<div>${html}</div>`;
 
         // Inversion because of lists and tables
-        html = html.replace('<br></div>', '</div><br>');
-        html = html.replace('</div><br>', '</div>');
-        html = html.replace('<div><br>', '<br><div>');
-        html = html.replace('</table><br><div>', '</table><div>');
-        html = html.replace(/<TableFinalBreak>/g, '<br>');
-        html = html.replace(/<div><br><\/div>/g, '');
-        html = html.replace(/<\/ul><br><div><\/div>/g, '</ul>');
-        html = html.replace(/<div><br> <br>/g, '<div><br>');
+        html = html.replaceAll('<br></div>', '</div><br>');
+        html = html.replaceAll('</div><br>', '</div>');
+        html = html.replaceAll('<div><br>', '<br><div>');
+        html = html.replaceAll('</table><br><div>', '</table><div>');
+        html = html.replaceAll(/<TableFinalBreak>/g, '<br>');
+        html = html.replaceAll(/<div><br><\/div>/g, '');
+        html = html.replaceAll(/<\/ul><br><div><\/div>/g, '</ul>');
+        html = html.replaceAll(/<div><br> <br>/g, '<div><br>');
+        html = html.replaceAll(/<div> <\/div>/g, '<div></div>');
+        html = html.replaceAll(/(<img\b[^>]*\/?>)\s*<br\s*\/?>/gi, '$1');
 
         // html = html.replace('</div><br><ul>', '</div><ul>');
         // html = html.replace('</div><br><ol>', '</div><ol>');
