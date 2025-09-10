@@ -7,17 +7,20 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "Debug Nest Framework",
-            "args": [
-                "${workspaceFolder}/src/main.ts"
-            ],
+            "name": "Debug NestJS",
+            "runtimeExecutable": "npm",
             "runtimeArgs": [
-                "--nolazy",
-                "-r",
-                "ts-node/register"
+                "run",
+                "start:debug"
+            ],
+            "skipFiles": [
+                "<node_internals>/**"
             ],
             "sourceMaps": true,
-            "cwd": "${workspaceRoot}",
+            "outFiles": [
+                "${workspaceFolder}/dist/**/*.js"
+            ],
+            "console": "integratedTerminal"
         }
     ]
 }

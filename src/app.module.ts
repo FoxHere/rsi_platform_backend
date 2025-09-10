@@ -10,6 +10,9 @@ import { ProductLineModule } from './modules/product_line/v1/product_line.module
 import { ApplicationAreaModule } from './modules/application_area/v1/application_area.module';
 import { StatusFilterModule } from './modules/status_filter/v1/status_filter.module';
 import { CommonModule } from './common/common.module';
+import { APP_GUARD, Reflector } from '@nestjs/core';
+import { OktaAuthGuard } from './common/guards/okta-auth.guard';
+import { ScopesGuard } from './common/guards/scopes.guard';
 
 @Module({
   imports: [
@@ -36,8 +39,13 @@ import { CommonModule } from './common/common.module';
     ApplicationAreaModule,
     StatusFilterModule,
     // JiraDatabaseModule,
+
   ],
   controllers: [],
-  providers: [],
+  providers: [
+    { provide: APP_GUARD, useClass: OktaAuthGuard },
+    { provide: APP_GUARD, useClass: ScopesGuard },
+    Reflector,
+  ],
 })
-export class AppModule {}
+export class AppModule { }
