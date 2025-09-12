@@ -43,8 +43,8 @@ import { ScopesGuard } from './common/guards/scopes.guard';
   ],
   controllers: [],
   providers: [
-    { provide: APP_GUARD, useClass: OktaAuthGuard },
-    { provide: APP_GUARD, useClass: ScopesGuard },
+    // { provide: APP_GUARD, useClass: OktaAuthGuard },
+    // { provide: APP_GUARD, useClass: ScopesGuard },
     Reflector,
   ],
 })
