@@ -17,7 +17,7 @@ export class TrasformerJirawikiToHtml {
   constructor(
     private readonly httpService: HttpService,
     private readonly encryptService: EncryptionService,
-  ) {}
+  ) { }
 
   extrancLinksToJson(text: string): LinksStyle[] {
     const linkRegex = /\[(.*?)\|(.*?)$\]|\[(.*?)\]+/g;
@@ -30,7 +30,7 @@ export class TrasformerJirawikiToHtml {
       const name =
         match[3].split('|')[1] !== undefined
           ? match[3].trim().split('|')[0].charAt(0).toUpperCase() +
-            match[3].trim().split('|')[0].slice(1).toString()
+          match[3].trim().split('|')[0].slice(1).toString()
           : `Link ${linkCount}`;
       const source = match[3].trim().split('|')[1]
         ? `<a href='${match[3].trim().split('|')[1]}'>${match[3].trim().split('|')[1]}</a>`
@@ -93,7 +93,7 @@ export class TrasformerJirawikiToHtml {
     try {
       let html = wikiText;
 
-      if (html === null || html === '' || html === '<None>') {
+      if (html === null || html === '' || html === '<None>' || html === '_None_') {
         html = '';
       } else {
         //Adjustments
@@ -431,16 +431,46 @@ export class TrasformerJirawikiToHtml {
         html = `<div>${html}</div>`;
 
         // Inversion because of lists and tables
-        html = html.replaceAll('<br></div>', '</div><br>');
-        html = html.replaceAll('</div><br>', '</div>');
-        html = html.replaceAll('<div><br>', '<br><div>');
-        html = html.replaceAll('</table><br><div>', '</table><div>');
+        html = html.replaceAll(/<br><\/div>/gi, '</div><br>');
+        html = html.replaceAll(/<\/div><br>/gi, '<br></div>');
+        html = html.replaceAll(/<div>\s*<\/div><br>\s*<table>/gi, '<table>');
+        html = html.replaceAll(/<\/div><br>\s*<table>/gi, '</div><table>');
+        html = html.replaceAll(/<\/strong><br><\/div>/gi, '</strong></div>');
+        html = html.replaceAll(/<div><br>\s*<strong>/gi, '<div><strong>');
+
+        // html = html.replaceAll('<div><br>', '<br><div>');
+        html = html.replaceAll(/<\/table><br><div>/g, '</table><div>');
         html = html.replaceAll(/<TableFinalBreak>/g, '<br>');
-        html = html.replaceAll(/<div><br><\/div>/g, '');
         html = html.replaceAll(/<\/ul><br><div><\/div>/g, '</ul>');
-        html = html.replaceAll(/<div><br> <br>/g, '<div><br>');
-        html = html.replaceAll(/<div> <\/div>/g, '<div></div>');
+        html = html.replaceAll(/<div><br> <br>/g, '<div><br>');
+        // Collapse 2+ consecutive <br> into a single <br>
+        html = html.replace(/(<br\s*\/?>\s*){2,}/gi, '<br>');
+
+        // Remove empty <div> containing only <br> or spaces
+        html = html.replace(/<div>\s*(<br\s*\/?>\s*)+\s*<\/div>/gi, '');
+
+        // Remove <br> directly after <img>
+        // html = html.replace(/(<img\b[^>]*>)\s*<br\s*\/?>/gi, '$1');
+
+        // Optional: normalize all <br> to <br> (drop slash)
+        html = html.replace(/<br\s*\/?>/gi, '<br>');
+
+        html = html.replaceAll(' ', '');
+        html = html.replaceAll('  ', ' ');
         html = html.replaceAll(/(<img\b[^>]*\/?>)\s*<br\s*\/?>/gi, '$1');
+        // -------------------------------------------------------------------------------
+        // Inversion because of lists and tables
+        // html = html.replaceAll('<br></div>', '</div><br>');
+        // html = html.replaceAll('</div><br>', '</div>');
+        // html = html.replaceAll('<div><br>', '<br><div>');
+        // html = html.replaceAll('</table><br><div>', '</table><div>');
+        // html = html.replaceAll(/<TableFinalBreak>/g, '<br>');
+        // html = html.replaceAll(/<div><br><\/div>/g, '');
+        // html = html.replaceAll(/<\/ul><br><div><\/div>/g, '</ul>');
+        // html = html.replaceAll(/<div><br> <br>/g, '<div><br>');
+        // html = html.replaceAll(/<div> <\/div>/g, '<div></div>');
+        // html = html.replaceAll(/(<img\b[^>]*\/?>)\s*<br\s*\/?>/gi, '$1');
+        // -------------------------------------------------------------------------------
 
         // html = html.replace('</div><br><ul>', '</div><ul>');
         // html = html.replace('</div><br><ol>', '</div><ol>');

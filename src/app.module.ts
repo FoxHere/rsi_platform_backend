@@ -13,9 +13,12 @@ import { CommonModule } from './common/common.module';
 import { APP_GUARD, Reflector } from '@nestjs/core';
 import { OktaAuthGuard } from './common/guards/okta-auth.guard';
 import { ScopesGuard } from './common/guards/scopes.guard';
+import { OktaAuth2Guard } from './common/guards/okta-auth2.guard';
+import { HttpModule } from '@nestjs/axios';
 
 @Module({
   imports: [
+    HttpModule.register({}),
     // Inject Jira replica database configuration
     // TypeOrmModule.forRootAsync({
     //   name: 'jiraConnection',
@@ -43,7 +46,7 @@ import { ScopesGuard } from './common/guards/scopes.guard';
   ],
   controllers: [],
   providers: [
-    // { provide: APP_GUARD, useClass: OktaAuthGuard },
+    { provide: APP_GUARD, useClass: OktaAuth2Guard },
     // { provide: APP_GUARD, useClass: ScopesGuard },
     Reflector,
   ],
