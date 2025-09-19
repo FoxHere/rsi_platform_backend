@@ -1,0 +1,25 @@
+feat(GPDIP-843): define a git commit template message
+# <type>(<JIRA-TICKET>): <short summary>
+# | | |
+# | | └─> short description (max. 72 characters, in English)
+# | └─> Jira ticket number (e.g., UI-123)
+# └─> commit type (feat, fix, docs, style, refactor, test, chore)
+
+# Message body (optional, use if you need further explanation)
+# - detail 1
+# - detail 2
+# - detail 3
+#
+# Best practices:
+# - Write in English
+# - Use the present tense ("add", "fix", "update")
+# - Always keep the first line short and clear
+#
+# Common types:
+# - feat: new feature
+# - fix: bug fix
+# - docs: documentation only
+# - style: style changes (code semantics don't change)
+# - refactor: refactoring without changing behavior
+# - test: adding/adjusting tests
+# - chore: maintenance (configs, deps, CI/CD)
